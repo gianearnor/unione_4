@@ -6,6 +6,7 @@ import ctypes
 import sys
 import os
 from block import Block
+from utilities_func import render_text
 
 ctypes.windll.user32.SetProcessDPIAware()
 # PARAMETERS
@@ -130,93 +131,32 @@ htime00 = round(sec00)
 clock = pygame.time.Clock()
 
 # render text
-screen.fill(WHITE)
-label1 = myfont.render("Ora osserverai una serie di quadrati", 1, (0, 0, 0))
-label2 = myfont.render("rappresentanti delle risorse", 1, (0, 0, 0))
-text_rect1 = label1.get_rect(center=(SCREEN_WIDTH/2, SCREEN_HEIGHT/2-40))
-text_rect2 = label2.get_rect(center=(SCREEN_WIDTH/2, SCREEN_HEIGHT/2))
-screen.blit(label1, text_rect1)
-screen.blit(label2, text_rect2)
-pygame.display.flip()
-pygame.time.wait(Tempo_scritte)
+render_text(screen, myfont, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
+            ["Ora osserverai una serie di quadrati", "rappresentanti delle risorse"])
 
+render_text(screen, myfont, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
+            ["Ad ogni quadrato è associato un numero che indica ", "il tempo necessario per ottenere la risorsa"])
 
-screen.fill(WHITE)
-label1 = myfont.render("Ad ogni quadrato è associato un numero che indica ", 1, (0,0,0))
-label2 = myfont.render("il tempo necessario per ottenere la risorsa", 1, (0,0,0))
-text_rect1 = label1.get_rect(center=(SCREEN_WIDTH/2, SCREEN_HEIGHT/2-40))
-text_rect2 = label2.get_rect(center=(SCREEN_WIDTH/2, SCREEN_HEIGHT/2))
-screen.blit(label1, text_rect1)
-screen.blit(label2, text_rect2)
-pygame.display.flip()
-pygame.time.wait(Tempo_scritte)
+render_text(screen, myfont, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
+            ["Le dimensioni del quadrato rappresentano", "il valore della risorsa"])
 
-screen.fill(WHITE)
-label1 = myfont.render("Le dimensioni del quadrato rappresentano", 1, (0, 0, 0))
-label2 = myfont.render("il valore della risorsa", 1, (0, 0, 0))
-text_rect1 = label1.get_rect(center=(SCREEN_WIDTH/2, SCREEN_HEIGHT/2-40))
-text_rect2 = label2.get_rect(center=(SCREEN_WIDTH/2, SCREEN_HEIGHT/2))
-screen.blit(label1, text_rect1)
-screen.blit(label2, text_rect2)
-pygame.display.flip()
-pygame.time.wait(Tempo_scritte)
+render_text(screen, myfont, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
+            ["Mentre il numero a lato dello schermo indica il numero", "di secondi che servono per assorbire il quadrato"])
 
-screen.fill(WHITE)
-label1 = myfont.render("Mentre il numero a lato dello schermo indica il numero", 1, (0, 0, 0))
-label2 = myfont.render("di secondi che servono per assorbire il quadrato", 1, (0, 0, 0))
-text_rect1 = label1.get_rect(center=(SCREEN_WIDTH/2, SCREEN_HEIGHT/2-40))
-text_rect2 = label2.get_rect(center=(SCREEN_WIDTH/2, SCREEN_HEIGHT/2))
-screen.blit(label1, text_rect1)
-screen.blit(label2, text_rect2)
-pygame.display.flip()
-pygame.time.wait(Tempo_scritte)
+render_text(screen, myfont, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
+            ["Lo scopo del gioco è ottenere la maggior quantità", "possibile di punti prima dello scadere del tempo"])
 
-screen.fill(WHITE)
-label1 = myfont.render("Lo scopo del gioco è ottenere la maggior quantità", 1, (0, 0, 0))
-label2 = myfont.render("possibile di punti prima dello scadere del tempo", 1, (0, 0, 0))
-text_rect1 = label1.get_rect(center=(SCREEN_WIDTH/2, SCREEN_HEIGHT/2-40))
-text_rect2 = label2.get_rect(center=(SCREEN_WIDTH/2, SCREEN_HEIGHT/2))
-screen.blit(label1, text_rect1)
-screen.blit(label2, text_rect2)
-pygame.display.flip()
-pygame.time.wait(Tempo_scritte)
+render_text(screen, myfont, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
+            ["Il tuo punteggio totale sarà visibile nella parte bassa", "dello schermo mediante una barra rossa"])
 
-screen.fill(WHITE)
-label1 = myfont.render("Il tuo punteggio totale sarà visibile nella parte bassa", 1, (0,0,0))
-label2 = myfont.render("dello schermo mediante una barra rossa", 1, (0, 0, 0))
-text_rect1 = label1.get_rect(center=(SCREEN_WIDTH/2, SCREEN_HEIGHT/2-40))
-text_rect2 = label2.get_rect(center=(SCREEN_WIDTH/2, SCREEN_HEIGHT/2))
-screen.blit(label1, text_rect1)
-screen.blit(label2, text_rect2)
-pygame.display.flip()
-pygame.time.wait(Tempo_scritte)
+render_text(screen, myfont, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
+            ["Inoltre il tuo punteggio diminuirà ogni secondo", "quindi cerca di essere rapido nelle tue scelte"])
 
-screen.fill(WHITE)
-label1 = myfont.render("Inoltre il tuo punteggio diminuirà ogni secondo", 1, (0, 0, 0))
-label2 = myfont.render("quindi cerca di essere rapido nelle tue scelte", 1, (0, 0, 0))
-text_rect1 = label1.get_rect(center=(SCREEN_WIDTH/2, SCREEN_HEIGHT/2-40))
-text_rect2 = label2.get_rect(center=(SCREEN_WIDTH/2, SCREEN_HEIGHT/2))
-screen.blit(label1, text_rect1)
-screen.blit(label2, text_rect2)
-pygame.display.flip()
-pygame.time.wait(Tempo_scritte)
+render_text(screen, myfont, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
+            ["Per ottenere la risorsa premi sulla tastiera la frecca direzionale", "corrispondente alla posizione del quadrato (sinistra)"])
 
-screen.fill(WHITE)
-label1 = myfont.render("Per ottenere la risorsa premi sulla tastiera la frecca direzionale", 1, (0,0,0))
-label2 = myfont.render("corrispondente alla posizione del quadrato (sinistra)", 1, (0,0,0))
-text_rect1 = label1.get_rect(center=(SCREEN_WIDTH/2, SCREEN_HEIGHT/2-40))
-text_rect2 = label2.get_rect(center=(SCREEN_WIDTH/2, SCREEN_HEIGHT/2))
-screen.blit(label1, text_rect1)
-screen.blit(label2, text_rect2)
-pygame.display.flip()
-pygame.time.wait(Tempo_scritte)
-
-screen.fill(WHITE)
-label1 = myfont.render("Ora osserverai un esempio automatico", 1, (0,0,0))
-text_rect1 = label1.get_rect(center=(SCREEN_WIDTH/2, SCREEN_HEIGHT/2-40))
-screen.blit(label1, text_rect1)
-pygame.display.flip()
-pygame.time.wait(Tempo_scritte)
+render_text(screen, myfont, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
+            ["Ora osserverai un esempio automatico"])
 
 while not done:
     for event in pygame.event.get():
@@ -228,16 +168,16 @@ while not done:
 
     conta_speed = 0
 
-    if b00.c == 0 :
+    if b00.c == 0:
         if b00.chosen:
             b00.c = 0
             b00.update()
 
-        elif b00.results[2] == 1 : 
+        elif b00.results[2] == 1:
             results = results.append(pd.DataFrame({'NN': [b00.NN], 'SIDE0': [b00.results[1]], 'scelta0': [b00.results[2]],'dim_iniz0': [b00.results[3]], 'handling_time0': [htime00]}))
-            b00.speed =  random.choice(SPEED_VALUES)
+            b00.speed = random.choice(SPEED_VALUES)
             xc = random.randrange(OBJ_COL_min, OBJ_COL_max, OBJ_COL_stp)
-            b00.reset(speed=b00.speed, decrease=(xc), side=0)
+            b00.reset(speed=b00.speed, decrease=xc, side=0)
             b00.c += 1
                    
         else:    
@@ -246,7 +186,7 @@ while not done:
            results = results.append(pd.DataFrame({'NN': [b00.NN], 'SIDE0': [b00.results[1]], 'scelta0': [b00.results[2]],'dim_iniz0': [b00.results[3]], 'handling_time0': [htime00]}))
            b00.speed =  random.choice(SPEED_VALUES)
            xc = random.randrange(OBJ_COL_min, OBJ_COL_max, OBJ_COL_stp)
-           b00.reset(speed=b00.speed, decrease=(xc), side=0)
+           b00.reset(speed=b00.speed, decrease=xc, side=0)
            b00.c += 1
 
     elif b00.NN < N_elementi_da_ispezionare[0] or b00.c < 100:
@@ -262,8 +202,7 @@ while not done:
 
     if b00.NN == sum(N_elementi_da_ispezionare): 
         done = True
-          
-    
+
     screen.fill(WHITE)
 
     all_sprites_list.draw(screen)
@@ -274,16 +213,15 @@ while not done:
     if scoreTOT > 1:
         scoreTOT -= 0.02
     sy = str(round(scoreTOT))
-    text_score = myfont2.render('PUNTEGGIO: %s' % (sy), False, (0, 0, 0))
+    text_score = myfont2.render('PUNTEGGIO: %s' % sy, False, (0, 0, 0))
     
-    screen.blit(text_score,(SCREEN_WIDTH//2-100, SCREEN_HEIGHT-100))
-    
-     
+    screen.blit(text_score, (SCREEN_WIDTH//2-100, SCREEN_HEIGHT-100))
+
     timer_string = "Tempo rimanente: 05:00"
  
     text_time = myfont2.render(timer_string, True, BLACK)
  
-    screen.blit(text_time,(SCREEN_WIDTH//2-200, 50))
+    screen.blit(text_time, (SCREEN_WIDTH//2-200, 50))
 
     frame_count += 1
     
@@ -296,28 +234,14 @@ while not done:
     clock.tick(60)
 
 # render text
-screen.fill(WHITE)
-label1 = myfont.render("Durante questo primo gioco di allenamento sarà presente", 1, (0,0,0))
-label2 = myfont.render("un solo quadrato alla volta", 1, (0,0,0))
-text_rect1 = label1.get_rect(center=(SCREEN_WIDTH/2, SCREEN_HEIGHT/2-40))
-text_rect2 = label2.get_rect(center=(SCREEN_WIDTH/2, SCREEN_HEIGHT/2))
-screen.blit(label1, text_rect1)
-screen.blit(label2, text_rect2)
-pygame.display.flip()
-pygame.time.wait(Tempo_scritte)
+render_text(screen, myfont, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
+            ["Durante questo primo gioco di allenamento sarà presente", "un solo quadrato alla volta"])
 
-screen.fill(WHITE)
-label1 = myfont.render("La durata di questo gioco è di 5 minuti", 1, (0,0,0))
-text_rect1 = label1.get_rect(center=(SCREEN_WIDTH/2, SCREEN_HEIGHT/2-40))
-screen.blit(label1, text_rect1)
-pygame.display.flip()
-pygame.time.wait(Tempo_scritte)
+render_text(screen, myfont, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
+            ["La durata di questo gioco è di 5 minuti"])
 
-screen.fill(WHITE)
-label1 = myfont.render("Per iniziare il gioco premi la barra spaziatrice", 1, (0,0,0))
-text_rect1 = label1.get_rect(center=(SCREEN_WIDTH/2, SCREEN_HEIGHT/2-40))
-screen.blit(label1, text_rect1)
-pygame.display.flip()
+render_text(screen, myfont, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
+            ["Per iniziare il gioco premi la barra spaziatrice"])
 clock.tick(60)
 
 # wait
@@ -331,7 +255,7 @@ while not done and not flag_quit:
             flag_quit = True
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
-                done=True
+                done = True
     
 if flag_quit:
     pygame.quit()
@@ -363,7 +287,7 @@ while not done:
             done = True
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
-                done=True
+                done = True
 
         if event.type == pygame.KEYDOWN: 
             if event.key == pygame.K_LEFT:
@@ -373,45 +297,37 @@ while not done:
                         score1 = b01.dim * .75
                         scoreTOT1 = scoreTOT1 + score1
 
-                        
-
-    if b01.c == 0 :
+    if b01.c == 0:
         if b01.chosen:
-                b01.c = 0
-                b01.update()
+            b01.c = 0
+            b01.update()
            
         elif b01.results[2] == 1:
 
-                
-                results = results.append(pd.DataFrame({'NN': [b01.NN], 'SIDE0': [b01.results[1]], 'scelta0': [b01.results[2]], 'dim_iniz0': [b01.results[3]],'handling_time0': [htime01]}))
-                                                 
-                 
-                b01.speed =  random.choice(SPEED_VALUES)
+            results = results.append(pd.DataFrame({'NN': [b01.NN], 'SIDE0': [b01.results[1]], 'scelta0': [b01.results[2]], 'dim_iniz0': [b01.results[3]],'handling_time0': [htime01]}))
+
+            b01.speed = random.choice(SPEED_VALUES)
                
-                xc1 = random.randrange(OBJ_COL_min, OBJ_COL_max, OBJ_COL_stp)
-                b01.reset(speed=b01.speed, decrease=(xc1), side=0)
+            xc1 = random.randrange(OBJ_COL_min, OBJ_COL_max, OBJ_COL_stp)
+            b01.reset(speed=b01.speed, decrease=xc1, side=0)
                
-                b01.c += 1
+            b01.c += 1
                     
         else:    
-                b01.NN += 1
+            b01.NN += 1
              
-                b01.results = [b01.NN, b01.side, 0, b01.dim_ini, b01.decrease]
-                
+            b01.results = [b01.NN, b01.side, 0, b01.dim_ini, b01.decrease]
 
-              
-                results = results.append(pd.DataFrame({'NN': [b01.NN], 'SIDE0': [b01.results[1]], 'scelta0': [b01.results[2]], 'dim_iniz0': [b01.results[3]],'handling_time0': [htime01]}))
+            results = results.append(pd.DataFrame({'NN': [b01.NN], 'SIDE0': [b01.results[1]], 'scelta0': [b01.results[2]], 'dim_iniz0': [b01.results[3]],'handling_time0': [htime01]}))
            
-                b01.speed =  random.choice(SPEED_VALUES)
-                xc1 = random.randrange(OBJ_COL_min, OBJ_COL_max, OBJ_COL_stp)
-                b01.reset(speed=b01.speed, decrease=(xc1), side=0)
+            b01.speed = random.choice(SPEED_VALUES)
+            xc1 = random.randrange(OBJ_COL_min, OBJ_COL_max, OBJ_COL_stp)
+            b01.reset(speed=b01.speed, decrease=xc1, side=0)
                 
-                b01.c += 1
-                
+            b01.c += 1
 
     else:  
         b01.update()
-        
 
     #print(conta_speed, b.speed, somma_passi)
     screen.fill(WHITE)
@@ -458,78 +374,29 @@ while not done:
     clock.tick(60)
 
 # render text
-screen.fill(WHITE)
-label1 = myfont.render("Nel prossimo esperimento saranno presenti ", 1, (0,0,0))
-label2 = myfont.render("2 quadrati contemporaneamente", 1, (0,0,0))
-text_rect1 = label1.get_rect(center=(SCREEN_WIDTH/2, SCREEN_HEIGHT/2-40))
-text_rect2 = label2.get_rect(center=(SCREEN_WIDTH/2, SCREEN_HEIGHT/2))
-screen.blit(label1, (text_rect1))
-screen.blit(label2, (text_rect2 ))
-pygame.display.flip()
-pygame.time.wait(Tempo_scritte)
+render_text(screen, myfont, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
+            ["Nel prossimo esperimento saranno presenti", "2 quadrati contemporaneamente"])
 
-screen.fill(WHITE)
-label1 = myfont.render("Lo scopo del gioco è ottenere la maggior quantità", 1, (0,0,0))
-label2 = myfont.render("possibile di punti prima dello scadere del tempo", 1, (0,0,0))
-text_rect1 = label1.get_rect(center=(SCREEN_WIDTH/2, SCREEN_HEIGHT/2-40))
-text_rect2 = label2.get_rect(center=(SCREEN_WIDTH/2, SCREEN_HEIGHT/2))
-screen.blit(label1, text_rect1)
-screen.blit(label2, text_rect2)
-pygame.display.flip()
-pygame.time.wait(Tempo_scritte)
+render_text(screen, myfont, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
+            ["Lo scopo del gioco è ottenere la maggior quantità", "possibile di punti prima dello scadere del tempo"])
 
-screen.fill(WHITE)
-label1 = myfont.render("Per ottenere la risorsa premi sulla tastiera la frecca direzionale", 1, (0,0,0))
-label2 = myfont.render("corrispondente alla posizione del quadrato (sinistra, destra)", 1, (0,0,0))
-text_rect1 = label1.get_rect(center=(SCREEN_WIDTH/2, SCREEN_HEIGHT/2-40))
-text_rect2 = label2.get_rect(center=(SCREEN_WIDTH/2, SCREEN_HEIGHT/2))
-screen.blit(label1, text_rect1)
-screen.blit(label2, text_rect2)
-pygame.display.flip()
-pygame.time.wait(Tempo_scritte)
+render_text(screen, myfont, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
+            ["Per ottenere la risorsa premi sulla tastiera la frecca direzionale", "corrispondente alla posizione del quadrato (sinistra, destra)"])
 
-screen.fill(WHITE)
-label1 = myfont.render("Potrai scegliere solo uno dei due quadrati", 1, (0,0,0))
-label2 = myfont.render("quindi scegli con attenzione", 1, (0,0,0))
-text_rect1 = label1.get_rect(center=(SCREEN_WIDTH/2, SCREEN_HEIGHT/2-40))
-text_rect2 = label2.get_rect(center=(SCREEN_WIDTH/2, SCREEN_HEIGHT/2))
-screen.blit(label1, (text_rect1))
-screen.blit(label2, (text_rect2 ))
-pygame.display.flip()
-pygame.time.wait(Tempo_scritte)
+render_text(screen, myfont, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
+            ["Potrai scegliere solo uno dei due quadrati", "quindi scegli con attenzione"])
 
-screen.fill(WHITE)
-label1 = myfont.render("Il tuo punteggio totale sarà visibile nella parte bassa", 1, (0,0,0))
-label2 = myfont.render("dello schermo mediante una barra rossa", 1, (0,0,0))
-text_rect1 = label1.get_rect(center=(SCREEN_WIDTH/2, SCREEN_HEIGHT/2-40))
-text_rect2 = label2.get_rect(center=(SCREEN_WIDTH/2, SCREEN_HEIGHT/2))
-screen.blit(label1, text_rect1)
-screen.blit(label2, text_rect2)
-pygame.display.flip()
-pygame.time.wait(Tempo_scritte)
+render_text(screen, myfont, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
+            ["Il tuo punteggio totale sarà visibile nella parte bassa", "dello schermo mediante una barra rossa"])
 
-screen.fill(WHITE)
-label1 = myfont.render("Inoltre il tuo punteggio diminuirà ogni secondo", 1, (0,0,0))
-label2 = myfont.render("quindi cerca di essere rapido nelle tue scelte", 1, (0,0,0))
-text_rect1 = label1.get_rect(center=(SCREEN_WIDTH/2, SCREEN_HEIGHT/2-40))
-text_rect2 = label2.get_rect(center=(SCREEN_WIDTH/2, SCREEN_HEIGHT/2))
-screen.blit(label1, text_rect1)
-screen.blit(label2, text_rect2)
-pygame.display.flip()
-pygame.time.wait(Tempo_scritte)
+render_text(screen, myfont, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
+            ["Inoltre il tuo punteggio diminuirà ogni secondo", "quindi cerca di essere rapido nelle tue scelte"])
 
-screen.fill(WHITE)
-label1 = myfont.render("La durata di questo gioco è di 5 minuti", 1, (0,0,0))
-text_rect1 = label1.get_rect(center=(SCREEN_WIDTH/2, SCREEN_HEIGHT/2-40))
-screen.blit(label1, text_rect1)
-pygame.display.flip()
-pygame.time.wait(Tempo_scritte)
+render_text(screen, myfont, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
+            ["La durata di questo gioco è di 5 minuti"])
 
-screen.fill(WHITE)
-label1 = myfont.render("Per iniziare il gioco premi la barra spaziatrice", 1, (0,0,0))
-text_rect1 = label1.get_rect(center=(SCREEN_WIDTH/2, SCREEN_HEIGHT/2-40))
-screen.blit(label1, text_rect1)
-pygame.display.flip()
+render_text(screen, myfont, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
+            ["Per iniziare il gioco premi la barra spaziatrice"])
 clock.tick(60)
 
 done = False
@@ -611,7 +478,7 @@ while not done:
         elif b02.results[2] == 1 or b03.results[2] == 1:
 
             results = results.append(pd.DataFrame({'NN': [b02.NN], 'SIDE0': [b02.results[1]], 'scelta0': [b02.results[2]], 'dim_iniz0': [b02.results[3]],'handling_time0': [htime02],
-                                                 'SIDE1': [b03.results[1]], 'scelta1': [b03.results[2]], 'dim_iniz1': [b03.results[3]],'handling_time1': [htime03]}))
+                                                 'SIDE1': [b03.results[1]], 'scelta1': [b03.results[2]], 'dim_iniz1': [b03.results[3]], 'handling_time1': [htime03]}))
                  
             b02.speed = random.choice(SPEED_VALUES)
             b03.speed = b02.speed
@@ -629,7 +496,7 @@ while not done:
 
               
            results = results.append(pd.DataFrame({'NN': [b02.NN], 'SIDE0': [b02.results[1]], 'scelta0': [b02.results[2]], 'dim_iniz0': [b02.results[3]],'handling_time0': [htime02],
-                                                 'SIDE1': [b03.results[1]], 'scelta1': [b03.results[2]], 'dim_iniz1': [b03.results[3]],'handling_time1': [htime03]}))
+                                                 'SIDE1': [b03.results[1]], 'scelta1': [b03.results[2]], 'dim_iniz1': [b03.results[3]], 'handling_time1': [htime03]}))
            
            b02.speed =  random.choice(SPEED_VALUES)
            b03.speed =  b02.speed
@@ -699,80 +566,31 @@ while not done:
     clock.tick(60)
     # results.to_excel("C:/Users/%s/Desktop/%s_2.xlsx" %(user, ID_NUMBER), index=False)
     results.to_excel("%s_2.xlsx" %ID_NUMBER, index=False)
+
 #render text 3
+render_text(screen, myfont, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
+            ["Nel prossimo esperimento saranno presenti", "3 quadrati contemporaneamente"])
 
-screen.fill(WHITE)
-label1 = myfont.render("Nel prossimo esperimento saranno presenti ", 1, (0,0,0))
-label2 = myfont.render("3 quadrati contemporaneamente", 1, (0,0,0))
-text_rect1 = label1.get_rect(center=(SCREEN_WIDTH/2, SCREEN_HEIGHT/2-40))
-text_rect2 = label2.get_rect(center=(SCREEN_WIDTH/2, SCREEN_HEIGHT/2))
-screen.blit(label1, (text_rect1))
-screen.blit(label2, (text_rect2 ))
-pygame.display.flip()
-pygame.time.wait(Tempo_scritte)
+render_text(screen, myfont, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
+            ["Lo scopo del gioco è ottenere la maggior quantità", "possibile di punti prima dello scadere del tempo"])
 
-screen.fill(WHITE)
-label1 = myfont.render("Lo scopo del gioco è ottenere la maggior quantità", 1, (0,0,0))
-label2 = myfont.render("possibile di punti prima dello scadere del tempo", 1, (0,0,0))
-text_rect1 = label1.get_rect(center=(SCREEN_WIDTH/2, SCREEN_HEIGHT/2-40))
-text_rect2 = label2.get_rect(center=(SCREEN_WIDTH/2, SCREEN_HEIGHT/2))
-screen.blit(label1, text_rect1)
-screen.blit(label2, text_rect2)
-pygame.display.flip()
-pygame.time.wait(Tempo_scritte)
+render_text(screen, myfont, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
+            ["Per ottenere la risorsa premi sulla tastiera la frecca direzionale", "corrispondente alla posizione del quadrato (sinistra, destra o su)"])
 
-screen.fill(WHITE)
-label1 = myfont.render("Per ottenere la risorsa premi sulla tastiera la frecca direzionale", 1, (0,0,0))
-label2 = myfont.render("corrispondente alla posizione del quadrato (sinistra, destra o su)", 1, (0,0,0))
-text_rect1 = label1.get_rect(center=(SCREEN_WIDTH/2, SCREEN_HEIGHT/2-40))
-text_rect2 = label2.get_rect(center=(SCREEN_WIDTH/2, SCREEN_HEIGHT/2))
-screen.blit(label1, text_rect1)
-screen.blit(label2, text_rect2)
-pygame.display.flip()
-pygame.time.wait(Tempo_scritte)
+render_text(screen, myfont, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
+            ["Potrai scegliere solo uno dei tre quadrati", "quindi scegli con attenzione"])
 
-screen.fill(WHITE)
-label1 = myfont.render("Potrai scegliere solo uno dei tre quadrati", 1, (0,0,0))
-label2 = myfont.render("quindi scegli con attenzione", 1, (0,0,0))
-text_rect1 = label1.get_rect(center=(SCREEN_WIDTH/2, SCREEN_HEIGHT/2-40))
-text_rect2 = label2.get_rect(center=(SCREEN_WIDTH/2, SCREEN_HEIGHT/2))
-screen.blit(label1, (text_rect1))
-screen.blit(label2, (text_rect2 ))
-pygame.display.flip()
-pygame.time.wait(Tempo_scritte)
+render_text(screen, myfont, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
+            ["Il tuo punteggio totale sarà visibile nella parte bassa", "dello schermo mediante una barra rossa"])
 
-screen.fill(WHITE)
-label1 = myfont.render("Il tuo punteggio totale sarà visibile nella parte bassa", 1, (0,0,0))
-label2 = myfont.render("dello schermo mediante una barra rossa", 1, (0,0,0))
-text_rect1 = label1.get_rect(center=(SCREEN_WIDTH/2, SCREEN_HEIGHT/2-40))
-text_rect2 = label2.get_rect(center=(SCREEN_WIDTH/2, SCREEN_HEIGHT/2))
-screen.blit(label1, text_rect1)
-screen.blit(label2, text_rect2)
-pygame.display.flip()
-pygame.time.wait(Tempo_scritte)
+render_text(screen, myfont, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
+            ["Inoltre il tuo punteggio diminuirà ogni secondo", "quindi cerca di essere rapido nelle tue scelte"])
 
-screen.fill(WHITE)
-label1 = myfont.render("Inoltre il tuo punteggio diminuirà ogni secondo", 1, (0,0,0))
-label2 = myfont.render("quindi cerca di essere rapido nelle tue scelte", 1, (0,0,0))
-text_rect1 = label1.get_rect(center=(SCREEN_WIDTH/2, SCREEN_HEIGHT/2-40))
-text_rect2 = label2.get_rect(center=(SCREEN_WIDTH/2, SCREEN_HEIGHT/2))
-screen.blit(label1, text_rect1)
-screen.blit(label2, text_rect2)
-pygame.display.flip()
-pygame.time.wait(Tempo_scritte)
+render_text(screen, myfont, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
+            ["La durata di questo gioco è di 5 minuti"])
 
-screen.fill(WHITE)
-label1 = myfont.render("La durata di questo gioco è di 5 minuti", 1, (0,0,0))
-text_rect1 = label1.get_rect(center=(SCREEN_WIDTH/2, SCREEN_HEIGHT/2-40))
-screen.blit(label1, text_rect1)
-pygame.display.flip()
-pygame.time.wait(Tempo_scritte)
-
-screen.fill(WHITE)
-label1 = myfont.render("Per iniziare il gioco premi la barra spaziatrice", 1, (0,0,0))
-text_rect1 = label1.get_rect(center=(SCREEN_WIDTH/2, SCREEN_HEIGHT/2-40))
-screen.blit(label1, text_rect1)
-pygame.display.flip()
+render_text(screen, myfont, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
+            ["Per iniziare il gioco premi la barra spaziatrice"])
 clock.tick(60)
 
 done = False
