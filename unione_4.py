@@ -123,7 +123,7 @@ results = pd.DataFrame({'NN': [], 'SIDE0': [], 'scelta0': [], 'dim_iniz0': [], '
 # game
 b00 = Block(SCREEN_WIDTH, SCREEN_HEIGHT, OBJECT_SIZES)
 xc = random.randrange(OBJ_COL_min, OBJ_COL_max, OBJ_COL_stp)
-b00.reset(speed=0, decrease=(xc), side=0)
+b00.reset(speed=0, decrease=xc, side=0)
 block_list.add(b00)
 all_sprites_list.add(b00)
 sec00 = b00.decrease*DIFF_FACT/60
@@ -164,7 +164,7 @@ while not done:
             done = True
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
-                done=True
+                done = True
 
     conta_speed = 0
 
@@ -179,34 +179,34 @@ while not done:
             xc = random.randrange(OBJ_COL_min, OBJ_COL_max, OBJ_COL_stp)
             b00.reset(speed=b00.speed, decrease=xc, side=0)
             b00.c += 1
-                   
-        else:    
+
+        else:
            b00.NN += 1
            b00.results = [b00.NN, b00.side, 0, b00.dim_ini, b00.decrease]
            results = results.append(pd.DataFrame({'NN': [b00.NN], 'SIDE0': [b00.results[1]], 'scelta0': [b00.results[2]],'dim_iniz0': [b00.results[3]], 'handling_time0': [htime00]}))
-           b00.speed =  random.choice(SPEED_VALUES)
+           b00.speed = random.choice(SPEED_VALUES)
            xc = random.randrange(OBJ_COL_min, OBJ_COL_max, OBJ_COL_stp)
            b00.reset(speed=b00.speed, decrease=xc, side=0)
            b00.c += 1
 
     elif b00.NN < N_elementi_da_ispezionare[0] or b00.c < 100:
         conta_speed += 1
-        b00.update()            
+        b00.update()
     elif b00.NN >= N_elementi_da_ispezionare[0] and b00.c == 100:
         b00.chosen = [b00.rect.x, b00.rect.y]
         conta_speed += 1
         score = b00.dim * .75
         scoreTOT = scoreTOT + score
-        
+
         b00.update()
 
-    if b00.NN == sum(N_elementi_da_ispezionare): 
+    if b00.NN == sum(N_elementi_da_ispezionare):
         done = True
 
     screen.fill(WHITE)
 
     all_sprites_list.draw(screen)
-    if scoreTOT < SCREEN_WIDTH//2: 
+    if scoreTOT < SCREEN_WIDTH//2:
         pygame.draw.rect(screen, RED, pygame.Rect((0, SCREEN_HEIGHT-100), (scoreTOT, 100)))
     else:
         pygame.draw.rect(screen, GREEN, pygame.Rect((0, SCREEN_HEIGHT-100), (scoreTOT, 100)))
@@ -214,23 +214,23 @@ while not done:
         scoreTOT -= 0.02
     sy = str(round(scoreTOT))
     text_score = myfont2.render('PUNTEGGIO: %s' % sy, False, (0, 0, 0))
-    
+
     screen.blit(text_score, (SCREEN_WIDTH//2-100, SCREEN_HEIGHT-100))
 
     timer_string = "Tempo rimanente: 05:00"
- 
+
     text_time = myfont2.render(timer_string, True, BLACK)
- 
+
     screen.blit(text_time, (SCREEN_WIDTH//2-200, 50))
 
     frame_count += 1
-    
+
     sec00 = b00.decrease*DIFF_FACT/60
     text_xc = myfont.render(str(round(sec00)), False, (0, 0, 0))
     screen.blit(text_xc, (SCREEN_WIDTH//2-800, SCREEN_HEIGHT-700))
-    
+
     pygame.display.flip()
-    
+
     clock.tick(60)
 
 # render text
@@ -256,32 +256,31 @@ while not done and not flag_quit:
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
                 done = True
-    
+
 if flag_quit:
     pygame.quit()
     sys.exit()
 
 done = False
-           
-#  game         
+
+#  game
 
 block_list = pygame.sprite.Group()
 
-all_sprites_list = pygame.sprite.Group()           
+all_sprites_list = pygame.sprite.Group()
 frame_count = 0
 frame_rate = 60
 start_time = 30 #300
 b01 = Block(SCREEN_WIDTH, SCREEN_HEIGHT, OBJECT_SIZES)
 xc1 = random.randrange(OBJ_COL_min, OBJ_COL_max, OBJ_COL_stp)
-b01.reset(speed=0, decrease=(xc1), side=0)
+b01.reset(speed=0, decrease=xc1, side=0)
 block_list.add(b01)
 all_sprites_list.add(b01)
 sec01 = b01.decrease*DIFF_FACT/60
 htime01 = round(sec01)
 
 while not done:
-    
-    
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             done = True
@@ -289,7 +288,7 @@ while not done:
             if event.key == pygame.K_ESCAPE:
                 done = True
 
-        if event.type == pygame.KEYDOWN: 
+        if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
                 for b01 in block_list:
                     if b01.speed:
@@ -301,39 +300,39 @@ while not done:
         if b01.chosen:
             b01.c = 0
             b01.update()
-           
+
         elif b01.results[2] == 1:
 
             results = results.append(pd.DataFrame({'NN': [b01.NN], 'SIDE0': [b01.results[1]], 'scelta0': [b01.results[2]], 'dim_iniz0': [b01.results[3]],'handling_time0': [htime01]}))
 
             b01.speed = random.choice(SPEED_VALUES)
-               
+
             xc1 = random.randrange(OBJ_COL_min, OBJ_COL_max, OBJ_COL_stp)
             b01.reset(speed=b01.speed, decrease=xc1, side=0)
-               
+
             b01.c += 1
-                    
-        else:    
+
+        else:
             b01.NN += 1
-             
+
             b01.results = [b01.NN, b01.side, 0, b01.dim_ini, b01.decrease]
 
             results = results.append(pd.DataFrame({'NN': [b01.NN], 'SIDE0': [b01.results[1]], 'scelta0': [b01.results[2]], 'dim_iniz0': [b01.results[3]],'handling_time0': [htime01]}))
-           
+
             b01.speed = random.choice(SPEED_VALUES)
             xc1 = random.randrange(OBJ_COL_min, OBJ_COL_max, OBJ_COL_stp)
             b01.reset(speed=b01.speed, decrease=xc1, side=0)
-                
+
             b01.c += 1
 
-    else:  
+    else:
         b01.update()
 
     #print(conta_speed, b.speed, somma_passi)
     screen.fill(WHITE)
 
     all_sprites_list.draw(screen)
-    if scoreTOT1 < SCREEN_WIDTH//2: 
+    if scoreTOT1 < SCREEN_WIDTH//2:
         pygame.draw.rect(screen, RED, pygame.Rect((0, SCREEN_HEIGHT-100), (scoreTOT1, 100)))
     else:
         pygame.draw.rect(screen, GREEN, pygame.Rect((0, SCREEN_HEIGHT-100), (scoreTOT1, 100)))
@@ -344,25 +343,25 @@ while not done:
     sy = str(round(scoreTOT1))
 
     text_score = myfont2.render('PUNTEGGIO: %s' % (sy), False, (0, 0, 0))
-    
+
     screen.blit(text_score, (SCREEN_WIDTH//2-100, SCREEN_HEIGHT-100))
 
     total_seconds = start_time - (frame_count // frame_rate)
     if total_seconds < 0:
         total_seconds = 0
- 
+
     minutes = total_seconds // 60
- 
+
     seconds = total_seconds % 60
- 
+
     timer_string = "Tempo rimanente: {0:02}:{1:02}".format(minutes, seconds)
- 
+
     text_time = myfont2.render(timer_string, True, BLACK)
- 
+
     screen.blit(text_time,(SCREEN_WIDTH//2-200, 50))
 
     frame_count += 1
-    
+
     if minutes == 0 and seconds == 0:
                 done=True
     sec00 = b01.decrease*DIFF_FACT/60
@@ -372,6 +371,9 @@ while not done:
     pygame.display.flip()
 
     clock.tick(60)
+
+block_list.empty()
+all_sprites_list.empty()
 
 # render text
 render_text(screen, myfont, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
@@ -409,8 +411,8 @@ while not done and not flag_quit:
             flag_quit = True
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
-                done=True
-    
+                done = True
+
 if flag_quit:
     pygame.quit()
     sys.exit()
@@ -424,14 +426,13 @@ all_sprites_list = pygame.sprite.Group()
 
 b02 = Block(SCREEN_WIDTH, SCREEN_HEIGHT, OBJECT_SIZES)
 xc2 = random.randrange(OBJ_COL_min, OBJ_COL_max, OBJ_COL_stp)
-b02.reset(speed=0, decrease=(xc2), side=0)
+b02.reset_circle(speed=0, decrease=xc2, side=0, image=0)
 block_list.add(b02)
 all_sprites_list.add(b02)
 
-
 b03 = Block(SCREEN_WIDTH, SCREEN_HEIGHT, OBJECT_SIZES)
 xc03 = random.randrange(OBJ_COL_min, OBJ_COL_max, OBJ_COL_stp)
-b03.reset(speed=0, decrease=(xc03), side=1)
+b03.reset_circle(speed=0, decrease=xc03, side=1, image=0)
 block_list.add(b03)
 all_sprites_list.add(b03)
 
@@ -443,37 +444,37 @@ htime02 = round(sec02)
 sec03 = b03.decrease*DIFF_FACT/60
 htime03 = round(sec03)
 done = False
-
+conta = 0
 while not done:
 
     for event in pygame.event.get():
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
-                done=True
+                done = True
         elif event.type == pygame.QUIT:
             done = True
 
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT and (not b02.chosen and not b03.chosen):
-               b02.chosen = [b02.rect.x, b02.rect.y] 
+               b02.chosen = [b02.rect.x, b02.rect.y]
                b03.rejected = [b03.rect.x, b03.rect.y]
-               score2 = b02.dim * 2.75                          
+               score2 = b02.dim * 2.75
                scoreTOT2 = scoreTOT2 + score2
-               
+
             if event.key == pygame.K_RIGHT and (not b02.chosen and not b03.chosen):
-               b03.chosen = [b03.rect.x, b03.rect.y] 
+               b03.chosen = [b03.rect.x, b03.rect.y]
                b02.rejected = [b02.rect.x, b02.rect.y]
-               score2 = b03.dim * 2.75               
+               score2 = b03.dim * 2.75
                scoreTOT2 = scoreTOT2 + score2
 
     if b02.c == 0 and b03.c == 0:
         if b03.chosen:
             b02.c = 0
-            b03.update()
+            b03.update_circle()
             
         elif b02.chosen:
             b03.c = 0
-            b02.update()
+            b02.update_circle()
             
         elif b02.results[2] == 1 or b03.results[2] == 1:
 
@@ -482,40 +483,68 @@ while not done:
                  
             b02.speed = random.choice(SPEED_VALUES)
             b03.speed = b02.speed
-            xc2 = random.randrange(OBJ_COL_min, OBJ_COL_max, OBJ_COL_stp)
-            b02.reset(speed=b02.speed, decrease=(xc2), side=0)
-            xc03 = random.randrange(OBJ_COL_min, OBJ_COL_max, OBJ_COL_stp)
-            b03.reset(speed=b03.speed, decrease=(xc03), side=1)
+            case = lista[conta]
+            exp_stim = stimuli.loc[[case[0]]]
+            num_stim = case[1]
+
+            image00 = exp_stim.Size1.values.tolist()[0]
+            image01 = exp_stim.Size2.values.tolist()[0]
+            xc2 = exp_stim.decrease1.values.tolist()[0]
+            xc03 = exp_stim.decrease2.values.tolist()[0]
+
+            # if random.choice([1, 2]) == 1:
+            #     image0D = max(image00, image01) * 0.8
+            #     xcD = max(xc0, xc1)
+            # else:
+            #     image0D = min(image00, image01)
+            #     xcD = min(xc0, xc1) * 1.2
+
+            # b0D.speed = 0
+            # xc2 = random.randrange(OBJ_COL_min, OBJ_COL_max, OBJ_COL_stp)
+            b02.reset_circle(speed=b02.speed, decrease=xc2, side=0, image=int(image00))
+            # xc03 = random.randrange(OBJ_COL_min, OBJ_COL_max, OBJ_COL_stp)
+            b03.reset_circle(speed=b03.speed, decrease=xc03, side=1, image=int(image01))
             b02.c += 1
-            b03.c += 1            
-        else:    
-           b02.NN += 1
+            b03.c += 1
+            conta += 1
+        else:
+
+            b02.NN += 1
             
-           b02.results = [b02.NN, b02.side, 0, b02.dim_ini, b02.decrease]
-           b03.results = [b02.NN, b03.side, 0, b03.dim_ini, b03.decrease]
+            b02.results = [b02.NN, b02.side, 0, b02.dim_ini, b02.decrease]
+            b03.results = [b02.NN, b03.side, 0, b03.dim_ini, b03.decrease]
 
               
-           results = results.append(pd.DataFrame({'NN': [b02.NN], 'SIDE0': [b02.results[1]], 'scelta0': [b02.results[2]], 'dim_iniz0': [b02.results[3]],'handling_time0': [htime02],
+            results = results.append(pd.DataFrame({'NN': [b02.NN], 'SIDE0': [b02.results[1]], 'scelta0': [b02.results[2]], 'dim_iniz0': [b02.results[3]],'handling_time0': [htime02],
                                                  'SIDE1': [b03.results[1]], 'scelta1': [b03.results[2]], 'dim_iniz1': [b03.results[3]], 'handling_time1': [htime03]}))
            
-           b02.speed =  random.choice(SPEED_VALUES)
-           b03.speed =  b02.speed
-           xc2 = random.randrange(OBJ_COL_min, OBJ_COL_max, OBJ_COL_stp)
-           b02.reset(speed=b02.speed, decrease=(xc2), side=0)
-           xc03 = random.randrange(OBJ_COL_min, OBJ_COL_max, OBJ_COL_stp)
-           b03.reset(speed=b03.speed, decrease=(xc03), side=1)
-           b02.c += 1
-           b03.c += 1 
+            b02.speed = random.choice(SPEED_VALUES)
+            b03.speed = b02.speed
+            case = lista[conta]
+            exp_stim = stimuli.loc[[case[0]]]
+            num_stim = case[1]
+
+            image00 = exp_stim.Size1.values.tolist()[0]
+            image01 = exp_stim.Size2.values.tolist()[0]
+            xc2 = exp_stim.decrease1.values.tolist()[0]
+            xc03 = exp_stim.decrease2.values.tolist()[0]
+
+            # xc2 = random.randrange(OBJ_COL_min, OBJ_COL_max, OBJ_COL_stp)
+            b02.reset_circle(speed=b02.speed, decrease=xc2, side=0, image=int(image00))
+            # xc03 = random.randrange(OBJ_COL_min, OBJ_COL_max, OBJ_COL_stp)
+            b03.reset_circle(speed=b03.speed, decrease=xc03, side=1, image=int(image01))
+            b02.c += 1
+            b03.c += 1
+            conta += 1
 
     else:  
         b02.update()
         b03.update()
         
-    if b02.done == True or b03.done == True: 
+    if b02.done == True or b03.done == True:
         done = True
 
-    
-    if scoreTOT2 >0 :
+    if scoreTOT2 > 0:
         scoreTOT2 -= 0.02
 
     screen.fill(WHITE)
@@ -539,7 +568,7 @@ while not done:
  
     text_time = myfont.render(timer_string, True, BLACK)
  
-    screen.blit(text_time,(SCREEN_WIDTH//2-200, 50))
+    screen.blit(text_time, (SCREEN_WIDTH//2-200, 50))
 
     frame_count += 1
     
@@ -548,9 +577,9 @@ while not done:
                 
     sy = str(round(scoreTOT2))
     
-    text_score2 = myfont.render('PUNTEGGIO: %s' % (sy), False, (0, 0, 0))
+    text_score2 = myfont.render('PUNTEGGIO: %s' % sy, False, (0, 0, 0))
     
-    screen.blit(text_score2,(SCREEN_WIDTH//2-100, SCREEN_HEIGHT-100))
+    screen.blit(text_score2, (SCREEN_WIDTH//2-100, SCREEN_HEIGHT-100))
            
     sec02 = xc2*DIFF_FACT/60
     sec03 = xc03*DIFF_FACT/60
@@ -603,7 +632,7 @@ while not done and not flag_quit:
             flag_quit = True
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
-                done=True
+                done = True
     
 if flag_quit:
     pygame.quit()
@@ -631,19 +660,19 @@ start_time = 300
 
 b04 = Block(SCREEN_WIDTH, SCREEN_HEIGHT, OBJECT_SIZES)
 xc = random.randrange(OBJ_COL_min, OBJ_COL_max, OBJ_COL_stp)
-b04.reset_circle(speed=0, decrease=xc, side=0, image= 0)
+b04.reset_circle(speed=0, decrease=xc, side=0, image=0)
 block_list.add(b04)
 all_sprites_list.add(b04)
 
 b05 = Block(SCREEN_WIDTH, SCREEN_HEIGHT, OBJECT_SIZES)
 xc = random.randrange(OBJ_COL_min, OBJ_COL_max, OBJ_COL_stp)
-b05.reset_circle(speed=0, decrease=xc, side=1, image= 0)
+b05.reset_circle(speed=0, decrease=xc, side=1, image=0)
 block_list.add(b05)
 all_sprites_list.add(b05)
 
 b0D = Block(SCREEN_WIDTH, SCREEN_HEIGHT, OBJECT_SIZES)
 xc = random.randrange(OBJ_COL_min, OBJ_COL_max, OBJ_COL_stp)
-b0D.reset_line(speed0=0, decrease=xc, side=2, image= 0)
+b0D.reset_line(speed0=0, decrease=xc, side=2, image=0)
 block_list.add(b0D)
 all_sprites_list.add(b0D)
 
@@ -657,14 +686,12 @@ htime0D = round(sec0D)
 screen.fill(WHITE)
 
 done = False
-      
-       
 
 somma_passi = 0 
 
-results = pd.DataFrame({'NN': [], 'SIDE0': [], 'scelta0': [],'dim_iniz0': [],'handling_time0': [],
-                       'SIDE1': [], 'scelta1': [],'dim_iniz1': [],'handling_time1': [],
-                       'SIDED': [], 'sceltaD': [],'dim_inizD': [],'handling_timeD': []})
+results = pd.DataFrame({'NN': [], 'SIDE0': [], 'scelta0': [], 'dim_iniz0': [], 'handling_time0': [],
+                       'SIDE1': [], 'scelta1': [], 'dim_iniz1': [], 'handling_time1': [],
+                       'SIDED': [], 'sceltaD': [], 'dim_inizD': [], 'handling_timeD': []})
 conta = 0
 while not done:
 
@@ -673,7 +700,7 @@ while not done:
             done = True
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
-                done=True
+                done = True
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT and (not b04.chosen and not b05.chosen and not b0D.chosen):
                b04.chosen = [b04.rect.x, b04.rect.y] 
@@ -843,7 +870,7 @@ while not done:
     frame_count += 1
     
     if minutes == 0 and seconds == 0:
-                done=True
+                done = True
     
     sec00 = xc0*DIFF_FACT/60
     sec01 = xc1*DIFF_FACT/60
