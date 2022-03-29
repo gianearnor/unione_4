@@ -27,7 +27,6 @@ pygame.init()
 
 infoScreen = pygame.display.Info()
 screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
-SPEED_VALUES = [0.008, 0.008]
 SCREEN_WIDTH = infoScreen.current_w
 SCREEN_HEIGHT = infoScreen.current_h
 
@@ -113,31 +112,31 @@ htime00 = round(sec00)
 clock = pygame.time.Clock()
 
 # render text
-render_text(screen, myfont, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
+render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
             ["Ora osserverai una serie di quadrati", "rappresentanti delle risorse"])
 
-render_text(screen, myfont, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
+render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
             ["Ad ogni quadrato è associato un numero che indica ", "il tempo necessario per ottenere la risorsa"])
 
-render_text(screen, myfont, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
+render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
             ["Le dimensioni del quadrato rappresentano", "il valore della risorsa"])
 
-render_text(screen, myfont, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
+render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
             ["Mentre il numero a lato dello schermo indica il numero", "di secondi che servono per assorbire il quadrato"])
 
-render_text(screen, myfont, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
+render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
             ["Lo scopo del gioco è ottenere la maggior quantità", "possibile di punti prima dello scadere del tempo"])
 
-render_text(screen, myfont, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
+render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
             ["Il tuo punteggio totale sarà visibile nella parte bassa", "dello schermo mediante una barra rossa"])
 
-render_text(screen, myfont, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
+render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
             ["Inoltre il tuo punteggio diminuirà ogni secondo", "quindi cerca di essere rapido nelle tue scelte"])
 
-render_text(screen, myfont, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
+render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
             ["Per ottenere la risorsa premi sulla tastiera la frecca direzionale", "corrispondente alla posizione del quadrato (sinistra)"])
 
-render_text(screen, myfont, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
+render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
             ["Ora osserverai un esempio automatico"])
 
 while not done:
@@ -216,13 +215,13 @@ while not done:
     clock.tick(60)
 
 # render text
-render_text(screen, myfont, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
+render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
             ["Durante questo primo gioco di allenamento sarà presente", "un solo quadrato alla volta"])
 
-render_text(screen, myfont, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
+render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
             ["La durata di questo gioco è di 5 minuti"])
 
-render_text(screen, myfont, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
+render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
             ["Per iniziare il gioco premi la barra spaziatrice"])
 clock.tick(60)
 
@@ -358,28 +357,28 @@ block_list.empty()
 all_sprites_list.empty()
 
 # render text
-render_text(screen, myfont, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
+render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
             ["Nel prossimo esperimento saranno presenti", "2 quadrati contemporaneamente"])
 
-render_text(screen, myfont, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
+render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
             ["Lo scopo del gioco è ottenere la maggior quantità", "possibile di punti prima dello scadere del tempo"])
 
-render_text(screen, myfont, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
+render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
             ["Per ottenere la risorsa premi sulla tastiera la frecca direzionale", "corrispondente alla posizione del quadrato (sinistra, destra)"])
 
-render_text(screen, myfont, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
+render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
             ["Potrai scegliere solo uno dei due quadrati", "quindi scegli con attenzione"])
 
-render_text(screen, myfont, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
+render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
             ["Il tuo punteggio totale sarà visibile nella parte bassa", "dello schermo mediante una barra rossa"])
 
-render_text(screen, myfont, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
+render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
             ["Inoltre il tuo punteggio diminuirà ogni secondo", "quindi cerca di essere rapido nelle tue scelte"])
 
-render_text(screen, myfont, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
+render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
             ["La durata di questo gioco è di 5 minuti"])
 
-render_text(screen, myfont, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
+render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
             ["Per iniziare il gioco premi la barra spaziatrice"])
 clock.tick(60)
 
@@ -579,28 +578,28 @@ while not done:
     results.to_excel("%s_2.xlsx" %ID_NUMBER, index=False)
 
 #render text 3
-render_text(screen, myfont, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
+render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
             ["Nel prossimo esperimento saranno presenti", "3 quadrati contemporaneamente"])
 
-render_text(screen, myfont, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
+render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
             ["Lo scopo del gioco è ottenere la maggior quantità", "possibile di punti prima dello scadere del tempo"])
 
-render_text(screen, myfont, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
+render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
             ["Per ottenere la risorsa premi sulla tastiera la frecca direzionale", "corrispondente alla posizione del quadrato (sinistra, destra o su)"])
 
-render_text(screen, myfont, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
+render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
             ["Potrai scegliere solo uno dei tre quadrati", "quindi scegli con attenzione"])
 
-render_text(screen, myfont, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
+render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
             ["Il tuo punteggio totale sarà visibile nella parte bassa", "dello schermo mediante una barra rossa"])
 
-render_text(screen, myfont, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
+render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
             ["Inoltre il tuo punteggio diminuirà ogni secondo", "quindi cerca di essere rapido nelle tue scelte"])
 
-render_text(screen, myfont, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
+render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
             ["La durata di questo gioco è di 5 minuti"])
 
-render_text(screen, myfont, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
+render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
             ["Per iniziare il gioco premi la barra spaziatrice"])
 clock.tick(60)
 
