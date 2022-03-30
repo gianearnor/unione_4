@@ -15,6 +15,7 @@ OBJ_COL_max = 200
 OBJ_COL_stp = 1
 OBJ_COL_mean = (OBJ_COL_min + OBJ_COL_max) // 2
 OBJ_COL_num = (OBJ_COL_max - OBJ_COL_min)/OBJ_COL_stp
+SPEED_VALUES = [0.008, 0.008]
 Tempo_scritte = 1000
 FPS = 60
 ID_NUMBER = random.randrange(1000, 9999, 1)

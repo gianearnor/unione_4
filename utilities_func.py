@@ -9,11 +9,9 @@ WHITE = (255, 255, 255)
 GREEN = (0, 255, 0)
 RED = (255, 0, 0)
 
-myfont = pygame.font.SysFont("monospace", 40)
-myfont2 = pygame.font.SysFont("monospace", 30)
-
 def render_text(screen, screen_width, screen_height, tempo_scritte, text):
     screen.fill(WHITE)
+    myfont = pygame.font.SysFont("monospace", 40)
     if type(text) != list:
         text = [text]
     for i in range(len(text)):
@@ -22,3 +20,254 @@ def render_text(screen, screen_width, screen_height, tempo_scritte, text):
         screen.blit(label, text_rect)
     pygame.display.flip()
     pygame.time.wait(tempo_scritte)
+
+
+def game(screen, screen_dim, object_sizes, clock, num_block, lista=None, stimuli=None):
+    done = False
+    myfont = pygame.font.SysFont("monospace", 40)
+    myfont2 = pygame.font.SysFont("monospace", 30)
+    # results = pd.DataFrame({'NN': [], 'SIDE0': [], 'scelta0': [], 'dim_iniz0': [], 'handling_time0': [],
+    #                         'SIDE1': [], 'scelta1': [], 'dim_iniz1': [], 'handling_time1': []})
+    results = pd.DataFrame()
+    screen_width, screen_height = screen_dim
+    block_list = pygame.sprite.Group()
+
+    scoreTOT = 0
+    all_sprites_list = pygame.sprite.Group()
+    frame_count = 0
+    frame_rate = 60
+    start_time = 30  # 300
+    htime = []
+    conta = 0
+    for i in range(num_block):
+        tmp_b = Block(screen_width, screen_height, object_sizes)
+        xc = random.randrange(OBJ_COL_min, OBJ_COL_max, OBJ_COL_stp)
+        tmp_b.reset(speed=0, decrease=xc, side=i)
+        block_list.add(tmp_b)
+        all_sprites_list.add(tmp_b)
+        sec = tmp_b.decrease * DIFF_FACT / 60
+        htime.append(round(sec))
+    # b01 = Block(screen_width, screen_height, object_sizes)
+    # xc1 = random.randrange(OBJ_COL_min, OBJ_COL_max, OBJ_COL_stp)
+    # b01.reset(speed=0, decrease=xc1, side=0)
+    # block_list.add(b01)
+    # all_sprites_list.add(b01)
+    # sec01 = b01.decrease * DIFF_FACT / 60
+    # htime01 = round(sec01)
+
+    while not done:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                done = True
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    done = True
+            if event.type == pygame.KEYDOWN:
+                check_chosen = False
+                for b in block_list:
+                    if b.chosen:
+                        check_chosen = True
+                if event.key == pygame.K_LEFT and not check_chosen:
+                    for b in block_list:
+                        if b.side == 0:
+                            b.chosen = [b.rect.x, b.rect.y]
+                            score = b.dim * .75
+                            scoreTOT = scoreTOT + score
+                        else:
+                            b.rejected = [b.rect.x, b.rect.y]
+                if event.key == pygame.K_RIGHT and not check_chosen:
+                    for b in block_list:
+                        if b.side == 1:
+                            b.chosen = [b.rect.x, b.rect.y]
+                            score = b.dim * .75
+                            scoreTOT = scoreTOT + score
+                        else:
+                            b.rejected = [b.rect.x, b.rect.y]
+                if event.key == pygame.K_UP and not check_chosen:
+                    for b in block_list:
+                        if b.side == 2:
+                            b.chosen = [b.rect.x, b.rect.y]
+                            score = b.dim * .75
+                            scoreTOT = scoreTOT + score
+                        else:
+                            b.rejected = [b.rect.x, b.rect.y]
+        check_c_zero = True
+        for b in block_list:
+            if b.c != 0:
+                check_c_zero = False
+        if check_c_zero:
+            check_side_chosen = False
+            side_chosen = 0
+            for i, b in enumerate(block_list):
+                if b.chosen:
+                    check_side_chosen = True
+                    side_chosen = i
+            if check_side_chosen:
+                for b in block_list:
+                    if b.side == side_chosen:
+                        if side_chosen == 0 or side_chosen == 1:
+                            b.update_circle()
+                        else:
+                            b.update_line()
+                    else:
+                        b.c = 0
+            else:
+                check_results = False
+                for b in block_list:
+                    if b.results[2] == 1:
+                        check_results = True
+                if check_results:
+                    tmp_results = pd.DataFrame({'NN': [block_list.sprites()[0].NN]})
+                    for i, b in enumerate(block_list):
+                        if i < 2:
+                            tmp_results = pd.concat(
+                                [tmp_results, pd.DataFrame({'SIDE' + str(i): [b.results[1]], 'scelta' + str(i): [b.results[2]],
+                                                            'dim_iniz' + str(i): [b.results[3]], 'handling_time' + str(i): [htime[i]]})], axis=1)
+                        if i == 2:
+                            tmp_results = pd.concat(
+                                [tmp_results, pd.DataFrame({'SIDED': [b.results[1]], 'sceltaD': [b.results[2]],
+                                                            'dim_inizD': [b.results[3]], 'handling_timeD': [htime[i]]})], axis=1)
+                    results = results.append(tmp_results)
+                    speed = random.choice(SPEED_VALUES)
+                    if num_block > 1:
+                        case = lista[conta]
+                        exp_stim = stimuli.loc[[case[0]]]
+                        num_stim = case[1]
+                        image0 = exp_stim.Size1.values.tolist()[0]
+                        image1 = exp_stim.Size2.values.tolist()[0]
+                        xc0 = exp_stim.decrease1.values.tolist()[0]
+                        xc1 = exp_stim.decrease2.values.tolist()[0]
+                        if random.choice([1, 2]) == 1:
+                            image0D = max(image0, image1) * 0.8
+                            xcD = max(xc0, xc1)
+                        else:
+                            image0D = min(image0, image1)
+                            xcD = min(xc0, xc1) * 1.2
+                        for b in block_list:
+                            if b.side == 0:
+                                b.reset_circle(speed=speed, decrease=xc0, side=0, image=int(image0))
+                            elif b.side == 1:
+                                b.reset_circle(speed=speed, decrease=xc1, side=1, image=int(image1))
+                            elif b.side == 2:
+                                b.reset_line(speed0=speed, decrease=xcD, side=2, image=int(image0D))
+                            b.c += 1
+                        conta += 1
+                    elif num_block == 1:
+                        b = block_list.sprites()[0]
+                        b.speed = speed
+                        xc = random.randrange(OBJ_COL_min, OBJ_COL_max, OBJ_COL_stp)
+                        b.reset(speed=b.speed, decrease=xc, side=0)
+                        b.c += 1
+                else:
+                    speed = random.choice(SPEED_VALUES)
+                    if num_block > 1:
+                        case = lista[conta]
+                        exp_stim = stimuli.loc[[case[0]]]
+                        num_stim = case[1]
+                        image0 = exp_stim.Size1.values.tolist()[0]
+                        image1 = exp_stim.Size2.values.tolist()[0]
+                        xc0 = exp_stim.decrease1.values.tolist()[0]
+                        xc1 = exp_stim.decrease2.values.tolist()[0]
+                        if random.choice([1, 2]) == 1:
+                            image0D = max(image0, image1) * 0.8
+                            xcD = max(xc0, xc1)
+                        else:
+                            image0D = min(image0, image1)
+                            xcD = min(xc0, xc1) * 1.2
+
+                        for b in block_list:
+                            b.NN += 1
+                            b.results = [b.NN, b.side, 0, b.dim_ini, b.decrease, 0]
+                            b.speed = speed
+                            if b.side == 0:
+                                b.reset_circle(speed=speed, decrease=xc0, side=0, image=int(image0))
+                            elif b.side == 1:
+                                b.reset_circle(speed=speed, decrease=xc1, side=1, image=int(image1))
+                            elif b.side == 2:
+                                b.reset_line(speed0=speed, decrease=xcD, side=2, image=int(image0D))
+                            b.c += 1
+                        conta += 1
+                    elif num_block == 1:
+                        b = block_list.sprites()[0]
+                        b.results = [b.NN, b.side, 0, b.dim_ini, b.decrease, 0]
+                        b.NN += 1
+                        b.speed = speed
+                        xc = random.randrange(OBJ_COL_min, OBJ_COL_max, OBJ_COL_stp)
+                        b.reset(speed=b.speed, decrease=xc, side=0)
+                        b.c += 1
+
+                    tmp_results = pd.DataFrame({'NN': [block_list.sprites()[0].NN]})
+                    for i, b in enumerate(block_list):
+                        if i < 2:
+                            tmp_results = pd.concat(
+                                [tmp_results,
+                                 pd.DataFrame({'SIDE' + str(i): [b.results[1]], 'scelta' + str(i): [b.results[2]],
+                                               'dim_iniz' + str(i): [b.results[3]],
+                                               'handling_time' + str(i): [htime[i]]})], axis=1)
+                        if i == 2:
+                            tmp_results = pd.concat(
+                                [tmp_results, pd.DataFrame({'SIDED': [b.results[1]], 'sceltaD': [b.results[2]],
+                                                            'dim_inizD': [b.results[3]],
+                                                            'handling_timeD': [htime[i]]})], axis=1)
+                    results = results.append(tmp_results)
+        else:
+            for b in block_list:
+                if b.side == 0 or b.side == 1:
+                    b.update_circle()
+                else:
+                    b.update_line()
+
+        for b in block_list:
+            if b.done:
+                done = True
+
+        screen.fill(WHITE)
+
+        all_sprites_list.draw(screen)
+        if scoreTOT < screen_width // 2:
+            pygame.draw.rect(screen, RED, pygame.Rect((0, screen_height - 100), (scoreTOT, 100)))
+        else:
+            pygame.draw.rect(screen, GREEN, pygame.Rect((0, screen_height - 100), (scoreTOT, 100)))
+        # pygame.draw.rect(screen, RED, pygame.Rect([0, SCREEN_HEIGHT-100], [scoreTOT, 100]))
+        if scoreTOT > 1:
+            scoreTOT -= 0.02
+
+        sy = str(round(scoreTOT))
+
+        text_score = myfont2.render('PUNTEGGIO: %s' % sy, False, (0, 0, 0))
+
+        screen.blit(text_score, (screen_width // 2 - 100, screen_height - 100))
+
+        total_seconds = start_time - (frame_count // frame_rate)
+        if total_seconds < 0:
+            total_seconds = 0
+
+        minutes = total_seconds // 60
+
+        seconds = total_seconds % 60
+
+        timer_string = "Tempo rimanente: {0:02}:{1:02}".format(minutes, seconds)
+
+        text_time = myfont2.render(timer_string, True, BLACK)
+
+        screen.blit(text_time, (screen_width // 2 - 200, 50))
+
+        frame_count += 1
+
+        if minutes == 0 and seconds == 0:
+            done = True
+        for b in block_list:
+            sec = b.decrease * DIFF_FACT / 60
+            text_xc = myfont.render(str(round(sec)), False, (0, 0, 0))
+            if b.side == 0:
+                screen.blit(text_xc, (screen_width // 2 - 800, screen_height - 700))
+            elif b.side == 1:
+                screen.blit(text_xc, (screen_width // 2 + 800, screen_height - 700))
+            elif b.side == 2:
+                screen.blit(text_xc, (screen_width // 2 - 100, screen_height - 700))
+
+        pygame.display.flip()
+
+        clock.tick(FPS)
+
+    return results

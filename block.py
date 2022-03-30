@@ -81,7 +81,7 @@ class Block(pygame.sprite.Sprite):
 
     def update(self):
         global results
-        global NN
+        # global NN
         if self.chosen:  # reduce
             self.speed = 0
             if self.c > 0:
