@@ -6,7 +6,7 @@ import ctypes
 import sys
 import os
 from block import Block
-from utilities_func import render_text, game
+from utilities_func import render_text, game, tutorial_game
 from parameters import *
 
 ctypes.windll.user32.SetProcessDPIAware()
@@ -25,6 +25,9 @@ for i in range(OBJ_SIZE_min, OBJ_SIZE_max, OBJ_SIZE_stp):
 
 pygame.init()
 
+clock = pygame.time.Clock()
+pygame.mouse.set_visible(False)
+
 infoScreen = pygame.display.Info()
 screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
 SCREEN_WIDTH = infoScreen.current_w
@@ -34,10 +37,6 @@ BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 GREEN = (0, 255, 0)
 RED = (255, 0, 0)
-
-NN = 0
-#results = tablib.Dataset()     
-#results.headers = ['N', 'scelta', 'dim_iniz', 'handling_time', 'time_0', 'click_time', 'exit_time']
 
 myfont = pygame.font.SysFont("monospace", 40)
 myfont2 = pygame.font.SysFont("monospace", 30)
@@ -77,40 +76,6 @@ for i in range(TOT_STIMULI):
         lista.append([i, 3])
 random.shuffle(lista)
 
-count_TOT = 0
-
-block_list = pygame.sprite.Group()
-all_sprites_list = pygame.sprite.Group()
-clock = pygame.time.Clock()
-pygame.mouse.set_visible(False)
-
-xc = 0
-xc1 = 0
-xc2 = 0
-frame_count = 0
-frame_rate = 60
-start_time = 10
-
-score = 0
-score1 = 0
-score2 = 0
-scoreTOT = 0
-scoreTOT1 = 0
-scoreTOT2 = 0
-done = False
-results = pd.DataFrame({'NN': [], 'SIDE0': [], 'scelta0': [], 'dim_iniz0': [], 'handling_time0': [],
-                        'SIDE1': [], 'scelta1': [], 'dim_iniz1': [], 'handling_time1': []})
-
-# game
-b00 = Block(SCREEN_WIDTH, SCREEN_HEIGHT, OBJECT_SIZES)
-xc = random.randrange(OBJ_COL_min, OBJ_COL_max, OBJ_COL_stp)
-b00.reset(speed=0, decrease=xc, side=0)
-block_list.add(b00)
-all_sprites_list.add(b00)
-sec00 = b00.decrease*DIFF_FACT/60
-htime00 = round(sec00)
-clock = pygame.time.Clock()
-
 # render text
 render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
             ["Ora osserverai una serie di quadrati", "rappresentanti delle risorse"])
@@ -139,80 +104,8 @@ render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
 render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
             ["Ora osserverai un esempio automatico"])
 
-while not done:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            done = True
-        elif event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_ESCAPE:
-                done = True
-
-    conta_speed = 0
-
-    if b00.c == 0:
-        if b00.chosen:
-            b00.c = 0
-            b00.update()
-
-        elif b00.results[2] == 1:
-            results = results.append(pd.DataFrame({'NN': [b00.NN], 'SIDE0': [b00.results[1]], 'scelta0': [b00.results[2]],'dim_iniz0': [b00.results[3]], 'handling_time0': [htime00]}))
-            b00.speed = random.choice(SPEED_VALUES)
-            xc = random.randrange(OBJ_COL_min, OBJ_COL_max, OBJ_COL_stp)
-            b00.reset(speed=b00.speed, decrease=xc, side=0)
-            b00.c += 1
-
-        else:
-           b00.NN += 1
-           b00.results = [b00.NN, b00.side, 0, b00.dim_ini, b00.decrease]
-           results = results.append(pd.DataFrame({'NN': [b00.NN], 'SIDE0': [b00.results[1]], 'scelta0': [b00.results[2]],'dim_iniz0': [b00.results[3]], 'handling_time0': [htime00]}))
-           b00.speed = random.choice(SPEED_VALUES)
-           xc = random.randrange(OBJ_COL_min, OBJ_COL_max, OBJ_COL_stp)
-           b00.reset(speed=b00.speed, decrease=xc, side=0)
-           b00.c += 1
-
-    elif b00.NN < N_elementi_da_ispezionare[0] or b00.c < 100:
-        conta_speed += 1
-        b00.update()
-    elif b00.NN >= N_elementi_da_ispezionare[0] and b00.c == 100:
-        b00.chosen = [b00.rect.x, b00.rect.y]
-        conta_speed += 1
-        score = b00.dim * .75
-        scoreTOT = scoreTOT + score
-
-        b00.update()
-
-    if b00.NN == sum(N_elementi_da_ispezionare):
-        done = True
-
-    screen.fill(WHITE)
-
-    all_sprites_list.draw(screen)
-    if scoreTOT < SCREEN_WIDTH//2:
-        pygame.draw.rect(screen, RED, pygame.Rect((0, SCREEN_HEIGHT-100), (scoreTOT, 100)))
-    else:
-        pygame.draw.rect(screen, GREEN, pygame.Rect((0, SCREEN_HEIGHT-100), (scoreTOT, 100)))
-    if scoreTOT > 1:
-        scoreTOT -= 0.02
-    sy = str(round(scoreTOT))
-    text_score = myfont2.render('PUNTEGGIO: %s' % sy, False, (0, 0, 0))
-
-    screen.blit(text_score, (SCREEN_WIDTH//2-100, SCREEN_HEIGHT-100))
-
-    timer_string = "Tempo rimanente: 05:00"
-
-    text_time = myfont2.render(timer_string, True, BLACK)
-
-    screen.blit(text_time, (SCREEN_WIDTH//2-200, 50))
-
-    frame_count += 1
-
-    sec00 = b00.decrease*DIFF_FACT/60
-    text_xc = myfont.render(str(round(sec00)), False, (0, 0, 0))
-    screen.blit(text_xc, (SCREEN_WIDTH//2-800, SCREEN_HEIGHT-700))
-
-    pygame.display.flip()
-
-    clock.tick(60)
+# Tutorial Game
+results_tutorial = tutorial_game(screen, (SCREEN_WIDTH, SCREEN_HEIGHT), OBJECT_SIZES, clock)
 
 # render text
 render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,

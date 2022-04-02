@@ -21,6 +21,104 @@ def render_text(screen, screen_width, screen_height, tempo_scritte, text):
     pygame.display.flip()
     pygame.time.wait(tempo_scritte)
 
+def tutorial_game(screen, screen_dim, object_sizes, clock):
+    block_list = pygame.sprite.Group()
+    all_sprites_list = pygame.sprite.Group()
+    screen_width, screen_height = screen_dim
+    myfont = pygame.font.SysFont("monospace", 40)
+    myfont2 = pygame.font.SysFont("monospace", 30)
+    b0 = Block(screen_width, screen_height, object_sizes)
+    xc = random.randrange(OBJ_COL_min, OBJ_COL_max, OBJ_COL_stp)
+    b0.reset(speed=0, decrease=xc, side=0)
+    block_list.add(b0)
+    all_sprites_list.add(b0)
+    sec00 = b0.decrease * DIFF_FACT / 60
+    htime00 = round(sec00)
+    scoreTOT = 0
+    done = False
+    results = pd.DataFrame({'NN': [], 'SIDE0': [], 'scelta0': [], 'dim_iniz0': [], 'handling_time0': []})
+    frame_count = 0
+
+    while not done:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                done = True
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    done = True
+
+        conta_speed = 0
+
+        if b0.c == 0:
+            if b0.chosen:
+                b0.c = 0
+                b0.update()
+
+            elif b0.results[2] == 1:
+                results = results.append(pd.DataFrame(
+                    {'NN': [b0.NN], 'SIDE0': [b0.results[1]], 'scelta0': [b0.results[2]],
+                     'dim_iniz0': [b0.results[3]], 'handling_time0': [htime00]}))
+                b0.speed = random.choice(SPEED_VALUES)
+                xc = random.randrange(OBJ_COL_min, OBJ_COL_max, OBJ_COL_stp)
+                b0.reset(speed=b0.speed, decrease=xc, side=0)
+                b0.c += 1
+
+            else:
+                b0.NN += 1
+                b0.results = [b0.NN, b0.side, 0, b0.dim_ini, b0.decrease]
+                results = results.append(pd.DataFrame(
+                    {'NN': [b0.NN], 'SIDE0': [b0.results[1]], 'scelta0': [b0.results[2]],
+                     'dim_iniz0': [b0.results[3]], 'handling_time0': [htime00]}))
+                b0.speed = random.choice(SPEED_VALUES)
+                xc = random.randrange(OBJ_COL_min, OBJ_COL_max, OBJ_COL_stp)
+                b0.reset(speed=b0.speed, decrease=xc, side=0)
+                b0.c += 1
+
+        elif b0.NN < N_elementi_da_ispezionare[0] or b0.c < 100:
+            conta_speed += 1
+            b0.update()
+        elif b0.NN >= N_elementi_da_ispezionare[0] and b0.c == 100:
+            b0.chosen = [b0.rect.x, b0.rect.y]
+            conta_speed += 1
+            score = b0.dim * .75
+            scoreTOT = scoreTOT + score
+
+            b0.update()
+
+        if b0.NN == sum(N_elementi_da_ispezionare):
+            done = True
+
+        screen.fill(WHITE)
+
+        all_sprites_list.draw(screen)
+        if scoreTOT < screen_width // 2:
+            pygame.draw.rect(screen, RED, pygame.Rect((0, screen_height - 100), (scoreTOT, 100)))
+        else:
+            pygame.draw.rect(screen, GREEN, pygame.Rect((0, screen_height - 100), (scoreTOT, 100)))
+        if scoreTOT > 1:
+            scoreTOT -= 0.02
+        sy = str(round(scoreTOT))
+        text_score = myfont2.render('PUNTEGGIO: %s' % sy, False, (0, 0, 0))
+
+        screen.blit(text_score, (screen_width // 2 - 100, screen_height - 100))
+
+        timer_string = "Tempo rimanente: 05:00"
+
+        text_time = myfont2.render(timer_string, True, BLACK)
+
+        screen.blit(text_time, (screen_width // 2 - 200, 50))
+
+        frame_count += 1
+
+        sec00 = b0.decrease * DIFF_FACT / 60
+        text_xc = myfont.render(str(round(sec00)), False, (0, 0, 0))
+        screen.blit(text_xc, (screen_width // 2 - 800, screen_height - 700))
+
+        pygame.display.flip()
+
+        clock.tick(60)
+
+    return results
 
 def game(screen, screen_dim, object_sizes, clock, num_block, lista=None, stimuli=None):
     done = False
