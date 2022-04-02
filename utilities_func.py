@@ -30,7 +30,8 @@ def game(screen, screen_dim, object_sizes, clock, num_block, lista=None, stimuli
     #                         'SIDE1': [], 'scelta1': [], 'dim_iniz1': [], 'handling_time1': []})
     results = pd.DataFrame()
     screen_width, screen_height = screen_dim
-    block_list = pygame.sprite.Group()
+    # block_list = pygame.sprite.Group()
+    block_list = []
 
     scoreTOT = 0
     all_sprites_list = pygame.sprite.Group()
@@ -43,17 +44,10 @@ def game(screen, screen_dim, object_sizes, clock, num_block, lista=None, stimuli
         tmp_b = Block(screen_width, screen_height, object_sizes)
         xc = random.randrange(OBJ_COL_min, OBJ_COL_max, OBJ_COL_stp)
         tmp_b.reset(speed=0, decrease=xc, side=i)
-        block_list.add(tmp_b)
+        block_list.append(tmp_b)
         all_sprites_list.add(tmp_b)
         sec = tmp_b.decrease * DIFF_FACT / 60
         htime.append(round(sec))
-    # b01 = Block(screen_width, screen_height, object_sizes)
-    # xc1 = random.randrange(OBJ_COL_min, OBJ_COL_max, OBJ_COL_stp)
-    # b01.reset(speed=0, decrease=xc1, side=0)
-    # block_list.add(b01)
-    # all_sprites_list.add(b01)
-    # sec01 = b01.decrease * DIFF_FACT / 60
-    # htime01 = round(sec01)
 
     while not done:
         for event in pygame.event.get():
@@ -117,7 +111,7 @@ def game(screen, screen_dim, object_sizes, clock, num_block, lista=None, stimuli
                     if b.results[2] == 1:
                         check_results = True
                 if check_results:
-                    tmp_results = pd.DataFrame({'NN': [block_list.sprites()[0].NN]})
+                    tmp_results = pd.DataFrame({'NN': [block_list[0].NN]})
                     for i, b in enumerate(block_list):
                         if i < 2:
                             tmp_results = pd.concat(
@@ -153,7 +147,7 @@ def game(screen, screen_dim, object_sizes, clock, num_block, lista=None, stimuli
                             b.c += 1
                         conta += 1
                     elif num_block == 1:
-                        b = block_list.sprites()[0]
+                        b = block_list[0]
                         b.speed = speed
                         xc = random.randrange(OBJ_COL_min, OBJ_COL_max, OBJ_COL_stp)
                         b.reset(speed=b.speed, decrease=xc, side=0)
@@ -188,7 +182,7 @@ def game(screen, screen_dim, object_sizes, clock, num_block, lista=None, stimuli
                             b.c += 1
                         conta += 1
                     elif num_block == 1:
-                        b = block_list.sprites()[0]
+                        b = block_list[0]
                         b.results = [b.NN, b.side, 0, b.dim_ini, b.decrease, 0]
                         b.NN += 1
                         b.speed = speed
@@ -196,7 +190,7 @@ def game(screen, screen_dim, object_sizes, clock, num_block, lista=None, stimuli
                         b.reset(speed=b.speed, decrease=xc, side=0)
                         b.c += 1
 
-                    tmp_results = pd.DataFrame({'NN': [block_list.sprites()[0].NN]})
+                    tmp_results = pd.DataFrame({'NN': [block_list[0].NN]})
                     for i, b in enumerate(block_list):
                         if i < 2:
                             tmp_results = pd.concat(

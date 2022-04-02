@@ -134,6 +134,7 @@ class Block(pygame.sprite.Sprite):
         self.results = 7 * [0]
         self.decrease = decrease
         self.side = side
+        self.speed = speed
 
         self.chosen = []
         self.rejected = []
