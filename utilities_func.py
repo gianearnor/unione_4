@@ -1,4 +1,5 @@
 import pygame
+import sys
 import random
 import pandas as pd
 from block import Block
@@ -20,6 +21,26 @@ def render_text(screen, screen_width, screen_height, tempo_scritte, text):
         screen.blit(label, text_rect)
     pygame.display.flip()
     pygame.time.wait(tempo_scritte)
+
+def wait_func(clock):
+    clock.tick(60)
+
+    # wait
+    done = False
+    flag_quit = False
+    while not done and not flag_quit:
+        for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
+                done = True
+            if event.type == pygame.QUIT:
+                flag_quit = True
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    done = True
+
+    if flag_quit:
+        pygame.quit()
+        sys.exit()
 
 def tutorial_game(screen, screen_dim, object_sizes, clock):
     block_list = pygame.sprite.Group()

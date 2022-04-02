@@ -6,7 +6,7 @@ import ctypes
 import sys
 import os
 from block import Block
-from utilities_func import render_text, game, tutorial_game
+from utilities_func import render_text, game, tutorial_game, wait_func
 from parameters import *
 
 ctypes.windll.user32.SetProcessDPIAware()
@@ -116,26 +116,9 @@ render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
 
 render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
             ["Per iniziare il gioco premi la barra spaziatrice"])
-clock.tick(60)
 
 # wait
-done = False
-flag_quit = False
-while not done and not flag_quit:
-    for event in pygame.event.get():
-        if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
-            done = True
-        if event.type == pygame.QUIT:
-            flag_quit = True
-        elif event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_ESCAPE:
-                done = True
-
-if flag_quit:
-    pygame.quit()
-    sys.exit()
-
-done = False
+wait_func(clock)
 
 #  game
 results1 = game(screen, (SCREEN_WIDTH, SCREEN_HEIGHT), OBJECT_SIZES, clock, 1)
@@ -164,25 +147,9 @@ render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
 
 render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
             ["Per iniziare il gioco premi la barra spaziatrice"])
-clock.tick(60)
 
-done = False
-flag_quit = False
-while not done and not flag_quit:
-    for event in pygame.event.get():
-        if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
-            done = True
-        if event.type == pygame.QUIT:
-            flag_quit = True
-        elif event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_ESCAPE:
-                done = True
-
-if flag_quit:
-    pygame.quit()
-    sys.exit()
-
-done = False
+# wait
+wait_func(clock)
 
 #game2
 
@@ -215,26 +182,9 @@ render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
 
 render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
             ["Per iniziare il gioco premi la barra spaziatrice"])
-clock.tick(60)
 
-done = False
-flag_quit = False
-while not done and not flag_quit:
-    for event in pygame.event.get():
-        if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
-            done = True
-        if event.type == pygame.QUIT:
-            flag_quit = True
-        elif event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_ESCAPE:
-                done = True
-    
-if flag_quit:
-    pygame.quit()
-    sys.exit()
-
-done = False
-
+# wait
+wait_func(clock)
 
 # game 3
 results3 = game(screen, (SCREEN_WIDTH, SCREEN_HEIGHT), OBJECT_SIZES, clock, 3, stimuli=stimuli, lista=lista)
