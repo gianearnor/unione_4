@@ -8,6 +8,8 @@ import os
 from block import Block
 from utilities_func import render_text, game, tutorial_game, wait_func, send_email
 from parameters import *
+from zipfile import ZipFile
+import shutil
 
 ctypes.windll.user32.SetProcessDPIAware()
 '''
@@ -156,7 +158,7 @@ wait_func(clock)
 results2 = game(screen, (SCREEN_WIDTH, SCREEN_HEIGHT), OBJECT_SIZES, clock, 2, stimuli=stimuli, lista=lista)
 
 # results.to_excel("C:/Users/%s/Desktop/%s_2.xlsx" %(user, ID_NUMBER), index=False)
-results2.to_excel("%s_2.xlsx" %ID_NUMBER, index=False)
+# results2.to_excel("%s_2.xlsx" %ID_NUMBER, index=False)
 
 #render text 3
 render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
@@ -192,8 +194,20 @@ results3 = game(screen, (SCREEN_WIDTH, SCREEN_HEIGHT), OBJECT_SIZES, clock, 3, s
 pygame.quit()
 
 # results.to_excel("C:/Users/%s/Desktop/%s.xls" %(user, ID_NUMBER), index=False)
-results3.to_excel("%s.xls" %ID_NUMBER, index=False)
+# results3.to_excel("%s.xls" %ID_NUMBER, index=False)
 
+# Genera l'output
+output_path = os.path.join(os.getcwd(), f"output_{ID_NUMBER}")
+output_archive = os.path.join(os.getcwd(), f"output_archive_{ID_NUMBER}")
+if not os.path.isdir(output_path):
+    os.mkdir(output_path)
+output_file1 = os.path.join(output_path, f"game1_{ID_NUMBER}.xls")
+output_file2 = os.path.join(output_path, f"game2_{ID_NUMBER}.xls")
+output_file3 = os.path.join(output_path, f"game3_{ID_NUMBER}.xls")
+results1.to_excel(output_file1)
+results2.to_excel(output_file2)
+results3.to_excel(output_file3)
+shutil.make_archive(output_archive, 'zip', output_path)
 # send_email("ciao", "ciao")
 
 '''
