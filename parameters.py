@@ -19,5 +19,7 @@ SPEED_VALUES = [0.008, 0.008]
 Tempo_scritte = 1000
 FPS = 60
 ID_NUMBER = random.randrange(1000, 9999, 1)
+FROM = str(ID_NUMBER) + '@prova.prova'
+TO = 'gianearnor@gmail.com'
 userhome = os.path.expanduser('~')
 user = os.path.split(userhome)[-1]

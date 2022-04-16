@@ -4,11 +4,15 @@ import random
 import pandas as pd
 from block import Block
 from parameters import *
+import smtplib
+from email.mime.text import MIMEText
+
 
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 GREEN = (0, 255, 0)
 RED = (255, 0, 0)
+
 
 def render_text(screen, screen_width, screen_height, tempo_scritte, text):
     screen.fill(WHITE)
@@ -21,6 +25,7 @@ def render_text(screen, screen_width, screen_height, tempo_scritte, text):
         screen.blit(label, text_rect)
     pygame.display.flip()
     pygame.time.wait(tempo_scritte)
+
 
 def wait_func(clock):
     clock.tick(60)
@@ -41,6 +46,7 @@ def wait_func(clock):
     if flag_quit:
         pygame.quit()
         sys.exit()
+
 
 def tutorial_game(screen, screen_dim, object_sizes, clock):
     block_list = pygame.sprite.Group()
@@ -140,6 +146,7 @@ def tutorial_game(screen, screen_dim, object_sizes, clock):
         clock.tick(60)
 
     return results
+
 
 def game(screen, screen_dim, object_sizes, clock, num_block, lista=None, stimuli=None):
     done = False
@@ -384,3 +391,16 @@ def game(screen, screen_dim, object_sizes, clock, num_block, lista=None, stimuli
         clock.tick(FPS)
 
     return results
+
+
+server = '127.0.0.1'
+
+
+def send_email(text, subj, FROM=FROM, TO=TO):
+    msg = MIMEText(text)
+    msg['Subject'] = subj
+    msg['From'] = FROM
+    msg['To'] = ", ".join(TO)
+    s = smtplib.SMTP(server)
+    s.sendmail(FROM, TO, msg.as_string())
+    s.quit()

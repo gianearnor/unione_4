@@ -6,7 +6,7 @@ import ctypes
 import sys
 import os
 from block import Block
-from utilities_func import render_text, game, tutorial_game, wait_func
+from utilities_func import render_text, game, tutorial_game, wait_func, send_email
 from parameters import *
 
 ctypes.windll.user32.SetProcessDPIAware()
@@ -193,6 +193,8 @@ pygame.quit()
 
 # results.to_excel("C:/Users/%s/Desktop/%s.xls" %(user, ID_NUMBER), index=False)
 results3.to_excel("%s.xls" %ID_NUMBER, index=False)
+
+# send_email("ciao", "ciao")
 
 '''
 Qm = np.mean(results.dim_iniz)
