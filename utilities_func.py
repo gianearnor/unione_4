@@ -1,7 +1,5 @@
 import pygame
 import sys
-import random
-import pandas as pd
 from block import Block
 from parameters import *
 import smtplib
@@ -63,7 +61,9 @@ def tutorial_game(screen, screen_dim, object_sizes, clock):
     htime00 = round(sec00)
     scoreTOT = 0
     done = False
-    results = pd.DataFrame({'NN': [], 'SIDE0': [], 'scelta0': [], 'dim_iniz0': [], 'handling_time0': []})
+    # results = pd.DataFrame({'NN': [], 'SIDE0': [], 'scelta0': [], 'dim_iniz0': [], 'handling_time0': []})
+    results_column = ['NN', 'SIDE0', 'scelta0', 'dim_iniz0', 'handling_time0']
+    results = []
     frame_count = 0
 
     while not done:
@@ -82,9 +82,10 @@ def tutorial_game(screen, screen_dim, object_sizes, clock):
                 b0.update()
 
             elif b0.results[2] == 1:
-                results = results.append(pd.DataFrame(
-                    {'NN': [b0.NN], 'SIDE0': [b0.results[1]], 'scelta0': [b0.results[2]],
-                     'dim_iniz0': [b0.results[3]], 'handling_time0': [htime00]}))
+                # results = results.append(pd.DataFrame(
+                #     {'NN': [b0.NN], 'SIDE0': [b0.results[1]], 'scelta0': [b0.results[2]],
+                #      'dim_iniz0': [b0.results[3]], 'handling_time0': [htime00]}))
+                results.append([b0.NN, b0.results[1], b0.results[2], b0.results[3], htime00])
                 b0.speed = random.choice(SPEED_VALUES)
                 xc = random.randrange(OBJ_COL_min, OBJ_COL_max, OBJ_COL_stp)
                 b0.reset(speed=b0.speed, decrease=xc, side=0)
@@ -93,9 +94,10 @@ def tutorial_game(screen, screen_dim, object_sizes, clock):
             else:
                 b0.NN += 1
                 b0.results = [b0.NN, b0.side, 0, b0.dim_ini, b0.decrease]
-                results = results.append(pd.DataFrame(
-                    {'NN': [b0.NN], 'SIDE0': [b0.results[1]], 'scelta0': [b0.results[2]],
-                     'dim_iniz0': [b0.results[3]], 'handling_time0': [htime00]}))
+                # results = results.append(pd.DataFrame(
+                #     {'NN': [b0.NN], 'SIDE0': [b0.results[1]], 'scelta0': [b0.results[2]],
+                #      'dim_iniz0': [b0.results[3]], 'handling_time0': [htime00]}))
+                results.append(b0.results)
                 b0.speed = random.choice(SPEED_VALUES)
                 xc = random.randrange(OBJ_COL_min, OBJ_COL_max, OBJ_COL_stp)
                 b0.reset(speed=b0.speed, decrease=xc, side=0)
@@ -154,7 +156,20 @@ def game(screen, screen_dim, object_sizes, clock, num_block, lista=None, stimuli
     myfont2 = pygame.font.SysFont("monospace", 30)
     # results = pd.DataFrame({'NN': [], 'SIDE0': [], 'scelta0': [], 'dim_iniz0': [], 'handling_time0': [],
     #                         'SIDE1': [], 'scelta1': [], 'dim_iniz1': [], 'handling_time1': []})
-    results = pd.DataFrame()
+    # results = pd.DataFrame()
+    results_column = ['NN']
+    for i in range(num_block):
+        if i < 2:
+            results_column.append('SIDE'+str(i))
+            results_column.append('scelta'+str(i))
+            results_column.append('dim_iniz'+str(i))
+            results_column.append('handling_time' + str(i))
+        elif i == 2:
+            results_column.append('SIDED')
+            results_column.append('sceltaD')
+            results_column.append('dim_inizD')
+            results_column.append('handling_timeD')
+    results = []
     screen_width, screen_height = screen_dim
     # block_list = pygame.sprite.Group()
     block_list = []
@@ -237,26 +252,22 @@ def game(screen, screen_dim, object_sizes, clock, num_block, lista=None, stimuli
                     if b.results[2] == 1:
                         check_results = True
                 if check_results:
-                    tmp_results = pd.DataFrame({'NN': [block_list[0].NN]})
+                    tmp_results = [block_list[0].NN]
                     for i, b in enumerate(block_list):
-                        if i < 2:
-                            tmp_results = pd.concat(
-                                [tmp_results, pd.DataFrame({'SIDE' + str(i): [b.results[1]], 'scelta' + str(i): [b.results[2]],
-                                                            'dim_iniz' + str(i): [b.results[3]], 'handling_time' + str(i): [htime[i]]})], axis=1)
-                        if i == 2:
-                            tmp_results = pd.concat(
-                                [tmp_results, pd.DataFrame({'SIDED': [b.results[1]], 'sceltaD': [b.results[2]],
-                                                            'dim_inizD': [b.results[3]], 'handling_timeD': [htime[i]]})], axis=1)
-                    results = results.append(tmp_results)
+                        tmp_results.append(b.results[1])
+                        tmp_results.append(b.results[2])
+                        tmp_results.append(b.results[3])
+                        tmp_results.append(htime[i])
+                    results.append(tmp_results)
                     speed = random.choice(SPEED_VALUES)
                     if num_block > 1:
                         case = lista[conta]
-                        exp_stim = stimuli.loc[[case[0]]]
+                        # exp_stim = stimuli.loc[[case[0]]]
                         num_stim = case[1]
-                        image0 = exp_stim.Size1.values.tolist()[0]
-                        image1 = exp_stim.Size2.values.tolist()[0]
-                        xc0 = exp_stim.decrease1.values.tolist()[0]
-                        xc1 = exp_stim.decrease2.values.tolist()[0]
+                        image0 = stimuli['Size1'][case[0]]
+                        image1 = stimuli['Size2'][case[0]]
+                        xc0 = stimuli['decrease1'][case[0]]
+                        xc1 = stimuli['decrease2'][case[0]]
                         if random.choice([1, 2]) == 1:
                             image0D = max(image0, image1) * 0.8
                             xcD = max(xc0, xc1)
@@ -282,12 +293,12 @@ def game(screen, screen_dim, object_sizes, clock, num_block, lista=None, stimuli
                     speed = random.choice(SPEED_VALUES)
                     if num_block > 1:
                         case = lista[conta]
-                        exp_stim = stimuli.loc[[case[0]]]
+                        # exp_stim = stimuli.loc[[case[0]]]
                         num_stim = case[1]
-                        image0 = exp_stim.Size1.values.tolist()[0]
-                        image1 = exp_stim.Size2.values.tolist()[0]
-                        xc0 = exp_stim.decrease1.values.tolist()[0]
-                        xc1 = exp_stim.decrease2.values.tolist()[0]
+                        image0 = stimuli['Size1'][case[0]]
+                        image1 = stimuli['Size2'][case[0]]
+                        xc0 = stimuli['decrease1'][case[0]]
+                        xc1 = stimuli['decrease2'][case[0]]
                         if random.choice([1, 2]) == 1:
                             image0D = max(image0, image1) * 0.8
                             xcD = max(xc0, xc1)
@@ -316,20 +327,13 @@ def game(screen, screen_dim, object_sizes, clock, num_block, lista=None, stimuli
                         b.reset(speed=b.speed, decrease=xc, side=0)
                         b.c += 1
 
-                    tmp_results = pd.DataFrame({'NN': [block_list[0].NN]})
+                    tmp_results = [block_list[0].NN]
                     for i, b in enumerate(block_list):
-                        if i < 2:
-                            tmp_results = pd.concat(
-                                [tmp_results,
-                                 pd.DataFrame({'SIDE' + str(i): [b.results[1]], 'scelta' + str(i): [b.results[2]],
-                                               'dim_iniz' + str(i): [b.results[3]],
-                                               'handling_time' + str(i): [htime[i]]})], axis=1)
-                        if i == 2:
-                            tmp_results = pd.concat(
-                                [tmp_results, pd.DataFrame({'SIDED': [b.results[1]], 'sceltaD': [b.results[2]],
-                                                            'dim_inizD': [b.results[3]],
-                                                            'handling_timeD': [htime[i]]})], axis=1)
-                    results = results.append(tmp_results)
+                        tmp_results.append(b.results[1])
+                        tmp_results.append(b.results[2])
+                        tmp_results.append(b.results[3])
+                        tmp_results.append(htime[i])
+                    results.append(tmp_results)
         else:
             for b in block_list:
                 if b.side == 0 or b.side == 1:
@@ -390,7 +394,7 @@ def game(screen, screen_dim, object_sizes, clock, num_block, lista=None, stimuli
 
         clock.tick(FPS)
 
-    return results
+    return results_column, results
 
 
 server = '127.0.0.1'

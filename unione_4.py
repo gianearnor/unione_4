@@ -1,4 +1,3 @@
-import pandas as pd
 import pygame
 import random
 import math
@@ -10,6 +9,7 @@ from utilities_func import render_text, game, tutorial_game, wait_func, send_ema
 from parameters import *
 from zipfile import ZipFile
 import shutil
+import csv
 
 ctypes.windll.user32.SetProcessDPIAware()
 '''
@@ -48,9 +48,14 @@ Hm = (OBJ_COL_mean * DIFF_FACT)/60
 Sm = (math.pi/2 + math.asin((SCREEN_HEIGHT*0.1)/(SCREEN_HEIGHT * 0.5))) / (SPEED_VALUES[0] * 60)
 
 # PREPARO STIMOLI
-stimuli = pd.DataFrame({'Size1': [], 'decrease1': [], 'Size2': [], 'decrease2': [], 'Size_decoy': [], 'decrease_decoy': []})
+# stimuli = pd.DataFrame({'Size1': [], 'decrease1': [], 'Size2': [], 'decrease2': [], 'Size_decoy': [], 'decrease_decoy': []})
 BF = 0.0
-
+size1 = []
+decrease1 = []
+size2 = []
+decrease2 = []
+size_decoy = []
+decrease_decoy = []
 for i in range(OBJ_SIZE_min, OBJ_SIZE_max, OBJ_SIZE_stp):
     image00 = i
     B0 = (image00 - Qm)/Qm
@@ -63,12 +68,16 @@ for i in range(OBJ_SIZE_min, OBJ_SIZE_max, OBJ_SIZE_stp):
             B1 = (image01 - Qm) / Qm
             F1 = B0 + F0 - B1
             xc1 = (60 * (Hm + Sm) * (1 - F1))/DIFF_FACT
-            stimuli = stimuli.append(pd.DataFrame({'Size1': [image00], 'decrease1': [xc0],
-                                                   'Size2': [image01], 'decrease2': [xc1],
-                                                   'Size_decoy': [image00 * 0.9], 'decrease_decoy': [xc0]}), ignore_index=True)
+            size1.append(image00)
+            decrease1.append(xc0)
+            size2.append(image01)
+            decrease2.append(xc1)
+            size_decoy.append(image00 * 0.9)
+            decrease_decoy.append(xc0)
 
-stimuli = stimuli.append(stimuli, ignore_index=True)
-TOT_STIMULI = len(stimuli)
+stimuli = {'Size1': size1, 'decrease1': decrease1, 'Size2': size2, 'decrease2': decrease2, 'Size_decoy': size_decoy, 'decrease_decoy': decrease_decoy}
+# stimuli = stimuli.append(stimuli, ignore_index=True)
+TOT_STIMULI = len(size1)
 
 lista = []
 for i in range(TOT_STIMULI):
@@ -123,7 +132,7 @@ render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
 wait_func(clock)
 
 #  game
-results1 = game(screen, (SCREEN_WIDTH, SCREEN_HEIGHT), OBJECT_SIZES, clock, 1)
+results_column1, results1 = game(screen, (SCREEN_WIDTH, SCREEN_HEIGHT), OBJECT_SIZES, clock, 1)
 
 # render text
 render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
@@ -155,7 +164,7 @@ wait_func(clock)
 
 #game2
 
-results2 = game(screen, (SCREEN_WIDTH, SCREEN_HEIGHT), OBJECT_SIZES, clock, 2, stimuli=stimuli, lista=lista)
+results_column2, results2 = game(screen, (SCREEN_WIDTH, SCREEN_HEIGHT), OBJECT_SIZES, clock, 2, stimuli=stimuli, lista=lista)
 
 # results.to_excel("C:/Users/%s/Desktop/%s_2.xlsx" %(user, ID_NUMBER), index=False)
 # results2.to_excel("%s_2.xlsx" %ID_NUMBER, index=False)
@@ -189,7 +198,7 @@ render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
 wait_func(clock)
 
 # game 3
-results3 = game(screen, (SCREEN_WIDTH, SCREEN_HEIGHT), OBJECT_SIZES, clock, 3, stimuli=stimuli, lista=lista)
+results_column3, results3 = game(screen, (SCREEN_WIDTH, SCREEN_HEIGHT), OBJECT_SIZES, clock, 3, stimuli=stimuli, lista=lista)
 
 pygame.quit()
 
@@ -201,14 +210,23 @@ output_path = os.path.join(os.getcwd(), f"output_{ID_NUMBER}")
 output_archive = os.path.join(os.getcwd(), f"output_archive_{ID_NUMBER}")
 if not os.path.isdir(output_path):
     os.mkdir(output_path)
-output_file1 = os.path.join(output_path, f"game1_{ID_NUMBER}.xls")
-output_file2 = os.path.join(output_path, f"game2_{ID_NUMBER}.xls")
-output_file3 = os.path.join(output_path, f"game3_{ID_NUMBER}.xls")
-results1.to_excel(output_file1)
-results2.to_excel(output_file2)
-results3.to_excel(output_file3)
+output_file1 = os.path.join(output_path, f"game1_{ID_NUMBER}.csv")
+output_file2 = os.path.join(output_path, f"game2_{ID_NUMBER}.csv")
+output_file3 = os.path.join(output_path, f"game3_{ID_NUMBER}.csv")
+with open(output_file1, 'w', newline='') as f:
+    write = csv.writer(f)
+    write.writerow(results_column1)
+    write.writerows(results1)
+with open(output_file2, 'w', newline='') as f:
+    write = csv.writer(f)
+    write.writerow(results_column2)
+    write.writerows(results2)
+with open(output_file3, 'w', newline='') as f:
+    write = csv.writer(f)
+    write.writerow(results_column3)
+    write.writerows(results3)
 shutil.make_archive(output_archive, 'zip', output_path)
-# send_email("ciao", "ciao")
+shutil.rmtree(output_path)
 
 '''
 Qm = np.mean(results.dim_iniz)
