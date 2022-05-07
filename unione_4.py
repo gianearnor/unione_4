@@ -88,44 +88,63 @@ for i in range(TOT_STIMULI):
 random.shuffle(lista)
 
 # render text
-render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
+render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT,
+            ["Benvenuto all'esperimento comportamentale di Daniel Migliori"])
+wait_func(clock)
+
+render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT,
+            [f"Il tuo codice identificativo e' {ID_NUMBER}"])
+wait_func(clock)
+
+render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT,
             ["Ora osserverai una serie di quadrati", "rappresentanti delle risorse"])
+wait_func(clock)
 
-render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
+render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT,
             ["Ad ogni quadrato è associato un numero che indica ", "il tempo necessario per ottenere la risorsa"])
+wait_func(clock)
 
-render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
+render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT,
             ["Le dimensioni del quadrato rappresentano", "il valore della risorsa"])
+wait_func(clock)
 
-render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
+render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT,
             ["Mentre il numero a lato dello schermo indica il numero", "di secondi che servono per assorbire il quadrato"])
+wait_func(clock)
 
-render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
+render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT,
             ["Lo scopo del gioco è ottenere la maggior quantità", "possibile di punti prima dello scadere del tempo"])
+wait_func(clock)
 
-render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
+render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT,
             ["Il tuo punteggio totale sarà visibile nella parte bassa", "dello schermo mediante una barra rossa"])
+wait_func(clock)
 
-render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
+render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT,
             ["Inoltre il tuo punteggio diminuirà ogni secondo", "quindi cerca di essere rapido nelle tue scelte"])
+wait_func(clock)
 
-render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
+render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT,
             ["Per ottenere la risorsa premi sulla tastiera la frecca direzionale", "corrispondente alla posizione del quadrato (sinistra)"])
+wait_func(clock)
 
-render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
+render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT,
             ["Ora osserverai un esempio automatico"])
+wait_func(clock)
 
 # Tutorial Game
 results_tutorial = tutorial_game(screen, (SCREEN_WIDTH, SCREEN_HEIGHT), OBJECT_SIZES, clock)
 
 # render text
-render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
+render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT,
             ["Durante questo primo gioco di allenamento sarà presente", "un solo quadrato alla volta"])
+wait_func(clock)
 
-render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
+render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT,
             ["La durata di questo gioco è di 5 minuti"])
+wait_func(clock)
 
-render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
+render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT,
             ["Per iniziare il gioco premi la barra spaziatrice"])
 
 # wait
@@ -135,28 +154,35 @@ wait_func(clock)
 results_column1, results1 = game(screen, (SCREEN_WIDTH, SCREEN_HEIGHT), OBJECT_SIZES, clock, 1)
 
 # render text
-render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
+render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT,
             ["Nel prossimo esperimento saranno presenti", "2 quadrati contemporaneamente"])
+wait_func(clock)
 
-render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
+render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT,
             ["Lo scopo del gioco è ottenere la maggior quantità", "possibile di punti prima dello scadere del tempo"])
+wait_func(clock)
 
-render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
+render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT,
             ["Per ottenere la risorsa premi sulla tastiera la frecca direzionale", "corrispondente alla posizione del quadrato (sinistra, destra)"])
+wait_func(clock)
 
-render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
+render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT,
             ["Potrai scegliere solo uno dei due quadrati", "quindi scegli con attenzione"])
+wait_func(clock)
 
-render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
+render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT,
             ["Il tuo punteggio totale sarà visibile nella parte bassa", "dello schermo mediante una barra rossa"])
+wait_func(clock)
 
-render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
+render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT,
             ["Inoltre il tuo punteggio diminuirà ogni secondo", "quindi cerca di essere rapido nelle tue scelte"])
+wait_func(clock)
 
-render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
+render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT,
             ["La durata di questo gioco è di 5 minuti"])
+wait_func(clock)
 
-render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
+render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT,
             ["Per iniziare il gioco premi la barra spaziatrice"])
 
 # wait
@@ -170,28 +196,35 @@ results_column2, results2 = game(screen, (SCREEN_WIDTH, SCREEN_HEIGHT), OBJECT_S
 # results2.to_excel("%s_2.xlsx" %ID_NUMBER, index=False)
 
 #render text 3
-render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
+render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT,
             ["Nel prossimo esperimento saranno presenti", "3 quadrati contemporaneamente"])
+wait_func(clock)
 
-render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
+render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT,
             ["Lo scopo del gioco è ottenere la maggior quantità", "possibile di punti prima dello scadere del tempo"])
+wait_func(clock)
 
-render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
+render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT,
             ["Per ottenere la risorsa premi sulla tastiera la frecca direzionale", "corrispondente alla posizione del quadrato (sinistra, destra o su)"])
+wait_func(clock)
 
-render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
+render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT,
             ["Potrai scegliere solo uno dei tre quadrati", "quindi scegli con attenzione"])
+wait_func(clock)
 
-render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
+render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT,
             ["Il tuo punteggio totale sarà visibile nella parte bassa", "dello schermo mediante una barra rossa"])
+wait_func(clock)
 
-render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
+render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT,
             ["Inoltre il tuo punteggio diminuirà ogni secondo", "quindi cerca di essere rapido nelle tue scelte"])
+wait_func(clock)
 
-render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
+render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT,
             ["La durata di questo gioco è di 5 minuti"])
+wait_func(clock)
 
-render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT, Tempo_scritte,
+render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT,
             ["Per iniziare il gioco premi la barra spaziatrice"])
 
 # wait
@@ -199,6 +232,18 @@ wait_func(clock)
 
 # game 3
 results_column3, results3 = game(screen, (SCREEN_WIDTH, SCREEN_HEIGHT), OBJECT_SIZES, clock, 3, stimuli=stimuli, lista=lista)
+
+render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT,
+            ["L'esperimento e' concluso.", "Grazie della tua partecipazione"])
+wait_func(clock)
+
+render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT,
+            [f"Il tuo codice identificativo e' {ID_NUMBER}"])
+wait_func(clock)
+
+render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT,
+            ["Premere la Barra Spaziatrice per chiudere il programma"])
+wait_func(clock)
 
 pygame.quit()
 

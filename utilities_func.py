@@ -12,7 +12,7 @@ GREEN = (0, 255, 0)
 RED = (255, 0, 0)
 
 
-def render_text(screen, screen_width, screen_height, tempo_scritte, text):
+def render_text(screen, screen_width, screen_height, text):
     screen.fill(WHITE)
     myfont = pygame.font.SysFont("monospace", 40)
     if type(text) != list:
@@ -21,8 +21,11 @@ def render_text(screen, screen_width, screen_height, tempo_scritte, text):
         label = myfont.render(text[i], 1, (0, 0, 0))
         text_rect = label.get_rect(center=(screen_width / 2, screen_height / 2 - 40 + i*40))
         screen.blit(label, text_rect)
+    myfont2 = pygame.font.SysFont("monospace", 20)
+    label = myfont2.render("premere la barra spaziatrice per andare avanti", 1, (0, 0, 0))
+    text_rect = label.get_rect(center=(screen_width / 2, screen_height - 20))
+    screen.blit(label, text_rect)
     pygame.display.flip()
-    pygame.time.wait(tempo_scritte)
 
 
 def wait_func(clock):
