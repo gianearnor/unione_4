@@ -23,4 +23,4 @@ FROM = str(ID_NUMBER) + '@prova.prova'
 TO = 'gianearnor@gmail.com'
 userhome = os.path.expanduser('~')
 user = os.path.split(userhome)[-1]
-DEBUG = True
+DEBUG = False

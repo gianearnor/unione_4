@@ -23,7 +23,7 @@ def render_text(screen, screen_width, screen_height, text):
         screen.blit(label, text_rect)
     myfont2 = pygame.font.SysFont("monospace", 30)
     label = myfont2.render("Premere la barra spaziatrice per andare avanti", 1, (0, 0, 0))
-    text_rect = label.get_rect(center=(screen_width / 2, screen_height - 20))
+    text_rect = label.get_rect(center=(screen_width / 2, screen_height - 100))
     screen.blit(label, text_rect)
     pygame.display.flip()
 
