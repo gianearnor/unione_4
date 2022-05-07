@@ -3,7 +3,7 @@ import random
 
 # PARAMETERS
 N_elementi_da_ispezionare = [4, 2]
-DIFF_FACT = 4
+DIFF_FACT = 1.5 # 4
 CUTOFF = 400
 OBJ_SIZE_min = 30
 OBJ_SIZE_max = 100

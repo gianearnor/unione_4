@@ -112,7 +112,7 @@ def tutorial_game(screen, screen_dim, object_sizes, clock):
         elif b0.NN >= N_elementi_da_ispezionare[0] and b0.c == 100:
             b0.chosen = [b0.rect.x, b0.rect.y]
             conta_speed += 1
-            score = b0.dim * .75
+            score = b0.dim * .5
             scoreTOT = scoreTOT + score
 
             b0.update()
@@ -181,7 +181,7 @@ def game(screen, screen_dim, object_sizes, clock, num_block, lista=None, stimuli
     all_sprites_list = pygame.sprite.Group()
     frame_count = 0
     frame_rate = 60
-    start_time = 30  # 300
+    start_time = 300  # 5 minuti
     htime = []
     conta = 0
     for i in range(num_block):
@@ -209,7 +209,7 @@ def game(screen, screen_dim, object_sizes, clock, num_block, lista=None, stimuli
                     for b in block_list:
                         if b.side == 0:
                             b.chosen = [b.rect.x, b.rect.y]
-                            score = b.dim * .75
+                            score = b.dim * .5
                             scoreTOT = scoreTOT + score
                         else:
                             b.rejected = [b.rect.x, b.rect.y]
@@ -217,7 +217,7 @@ def game(screen, screen_dim, object_sizes, clock, num_block, lista=None, stimuli
                     for b in block_list:
                         if b.side == 1:
                             b.chosen = [b.rect.x, b.rect.y]
-                            score = b.dim * .75
+                            score = b.dim * .5
                             scoreTOT = scoreTOT + score
                         else:
                             b.rejected = [b.rect.x, b.rect.y]
@@ -225,7 +225,7 @@ def game(screen, screen_dim, object_sizes, clock, num_block, lista=None, stimuli
                     for b in block_list:
                         if b.side == 2:
                             b.chosen = [b.rect.x, b.rect.y]
-                            score = b.dim * .75
+                            score = b.dim * .5
                             scoreTOT = scoreTOT + score
                         else:
                             b.rejected = [b.rect.x, b.rect.y]
