@@ -2,7 +2,7 @@ import os
 import random
 
 # PARAMETERS
-N_elementi_da_ispezionare = [4, 2]
+N_elementi_da_ispezionare = [5, 4]
 DIFF_FACT = 4
 CUTOFF = 400
 OBJ_SIZE_min = 30
@@ -23,3 +23,4 @@ FROM = str(ID_NUMBER) + '@prova.prova'
 TO = 'gianearnor@gmail.com'
 userhome = os.path.expanduser('~')
 user = os.path.split(userhome)[-1]
+DEBUG = True

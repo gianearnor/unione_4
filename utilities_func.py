@@ -21,8 +21,8 @@ def render_text(screen, screen_width, screen_height, text):
         label = myfont.render(text[i], 1, (0, 0, 0))
         text_rect = label.get_rect(center=(screen_width / 2, screen_height / 2 - 40 + i*40))
         screen.blit(label, text_rect)
-    myfont2 = pygame.font.SysFont("monospace", 20)
-    label = myfont2.render("premere la barra spaziatrice per andare avanti", 1, (0, 0, 0))
+    myfont2 = pygame.font.SysFont("monospace", 30)
+    label = myfont2.render("Premere la barra spaziatrice per andare avanti", 1, (0, 0, 0))
     text_rect = label.get_rect(center=(screen_width / 2, screen_height - 20))
     screen.blit(label, text_rect)
     pygame.display.flip()
@@ -40,9 +40,10 @@ def wait_func(clock):
                 done = True
             if event.type == pygame.QUIT:
                 flag_quit = True
-            elif event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_ESCAPE:
-                    done = True
+            if DEBUG:
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_ESCAPE:
+                        done = True
 
     if flag_quit:
         pygame.quit()
@@ -73,9 +74,10 @@ def tutorial_game(screen, screen_dim, object_sizes, clock):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 done = True
-            elif event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_ESCAPE:
-                    done = True
+            if DEBUG:
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_ESCAPE:
+                        done = True
 
         conta_speed = 0
 
@@ -197,9 +199,10 @@ def game(screen, screen_dim, object_sizes, clock, num_block, lista=None, stimuli
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 done = True
-            elif event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_ESCAPE:
-                    done = True
+            if DEBUG:
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_ESCAPE:
+                        done = True
             if event.type == pygame.KEYDOWN:
                 check_chosen = False
                 for b in block_list:
