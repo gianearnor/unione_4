@@ -1,8 +1,8 @@
 import pygame
 import math
 import random
+from parameters import DIFF_FACT
 
-DIFF_FACT = 4
 FPS = 60
 
 BLACK = (0, 0, 0)

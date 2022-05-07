@@ -56,7 +56,7 @@ def tutorial_game(screen, screen_dim, object_sizes, clock):
     myfont = pygame.font.SysFont("monospace", 40)
     myfont2 = pygame.font.SysFont("monospace", 30)
     b0 = Block(screen_width, screen_height, object_sizes)
-    xc = random.randrange(OBJ_COL_min, OBJ_COL_max, OBJ_COL_stp)
+    xc = random.randrange(OBJ_COL_min*2, OBJ_COL_max*2, OBJ_COL_stp)
     b0.reset(speed=0, decrease=xc, side=0)
     block_list.add(b0)
     all_sprites_list.add(b0)
@@ -90,7 +90,7 @@ def tutorial_game(screen, screen_dim, object_sizes, clock):
                 #      'dim_iniz0': [b0.results[3]], 'handling_time0': [htime00]}))
                 results.append([b0.NN, b0.results[1], b0.results[2], b0.results[3], htime00])
                 b0.speed = random.choice(SPEED_VALUES)
-                xc = random.randrange(OBJ_COL_min, OBJ_COL_max, OBJ_COL_stp)
+                xc = random.randrange(OBJ_COL_min*2, OBJ_COL_max*2, OBJ_COL_stp)
                 b0.reset(speed=b0.speed, decrease=xc, side=0)
                 b0.c += 1
 
@@ -102,7 +102,7 @@ def tutorial_game(screen, screen_dim, object_sizes, clock):
                 #      'dim_iniz0': [b0.results[3]], 'handling_time0': [htime00]}))
                 results.append(b0.results)
                 b0.speed = random.choice(SPEED_VALUES)
-                xc = random.randrange(OBJ_COL_min, OBJ_COL_max, OBJ_COL_stp)
+                xc = random.randrange(OBJ_COL_min*2, OBJ_COL_max*2, OBJ_COL_stp)
                 b0.reset(speed=b0.speed, decrease=xc, side=0)
                 b0.c += 1
 
@@ -186,7 +186,7 @@ def game(screen, screen_dim, object_sizes, clock, num_block, lista=None, stimuli
     conta = 0
     for i in range(num_block):
         tmp_b = Block(screen_width, screen_height, object_sizes)
-        xc = random.randrange(OBJ_COL_min, OBJ_COL_max, OBJ_COL_stp)
+        xc = random.randrange(OBJ_COL_min*2, OBJ_COL_max*2, OBJ_COL_stp)
         tmp_b.reset(speed=0, decrease=xc, side=i)
         block_list.append(tmp_b)
         all_sprites_list.add(tmp_b)
@@ -289,7 +289,7 @@ def game(screen, screen_dim, object_sizes, clock, num_block, lista=None, stimuli
                     elif num_block == 1:
                         b = block_list[0]
                         b.speed = speed
-                        xc = random.randrange(OBJ_COL_min, OBJ_COL_max, OBJ_COL_stp)
+                        xc = random.randrange(OBJ_COL_min*2, OBJ_COL_max*2, OBJ_COL_stp)
                         b.reset(speed=b.speed, decrease=xc, side=0)
                         b.c += 1
                 else:
@@ -326,7 +326,7 @@ def game(screen, screen_dim, object_sizes, clock, num_block, lista=None, stimuli
                         b.results = [b.NN, b.side, 0, b.dim_ini, b.decrease, 0]
                         b.NN += 1
                         b.speed = speed
-                        xc = random.randrange(OBJ_COL_min, OBJ_COL_max, OBJ_COL_stp)
+                        xc = random.randrange(OBJ_COL_min*2, OBJ_COL_max*2, OBJ_COL_stp)
                         b.reset(speed=b.speed, decrease=xc, side=0)
                         b.c += 1
 
