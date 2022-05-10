@@ -155,7 +155,7 @@ def tutorial_game(screen, screen_dim, object_sizes, clock):
     return results
 
 
-def game(screen, screen_dim, object_sizes, clock, num_block, lista=None, stimuli=None):
+def game(screen, screen_dim, object_sizes, clock, num_block, lista=None, stimuli=None, tempo_di_gioco=300):
     done = False
     myfont = pygame.font.SysFont("monospace", 40)
     myfont2 = pygame.font.SysFont("monospace", 30)
@@ -183,7 +183,7 @@ def game(screen, screen_dim, object_sizes, clock, num_block, lista=None, stimuli
     all_sprites_list = pygame.sprite.Group()
     frame_count = 0
     frame_rate = 60
-    start_time = 300  # 5 minuti
+    start_time = tempo_di_gioco  # 5 minuti
     htime = []
     conta = 0
     for i in range(num_block):

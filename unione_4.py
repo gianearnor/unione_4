@@ -97,23 +97,43 @@ render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT,
 wait_func(clock)
 
 render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT,
-            ["Ora osserverai una serie di quadrati", "rappresentanti delle risorse"])
+            ["Il gioco è composto da due sequenze", "di 5 minuti l’una"])
 wait_func(clock)
 
 render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT,
-            ["Ad ogni quadrato è associato un numero che indica ", "il tempo necessario per ottenere la risorsa"])
+            ["Lo scopo di questo gioco è accumulare", "la maggior quantità di punti possibili"])
 wait_func(clock)
 
 render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT,
-            ["Le dimensioni del quadrato rappresentano", "il valore della risorsa"])
+            ["Nel gioco appariranno due o tre quadrati", "di dimensione diversa"])
 wait_func(clock)
 
 render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT,
-            ["Mentre il numero a lato dello schermo indica il numero", "di secondi che servono per assorbire il quadrato"])
+            ["I quadrati più grandi valgono più punti ", "rispetto a quelli più piccoli"])
 wait_func(clock)
 
 render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT,
-            ["Lo scopo del gioco è ottenere la maggior quantità", "possibile di punti prima dello scadere del tempo"])
+            ["Per scegliere un quadrato premi la freccetta direzionale corrispondente ", "alla posizione del quadrato nello schermo"])
+wait_func(clock)
+
+render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT,
+            ["Una volta scelto, il quadrato impiegherà alcuni secondi per scomparire"])
+wait_func(clock)
+
+render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT,
+            ["Il numero dei secondi è indicato da una cifra accanto al quadrato"])
+wait_func(clock)
+
+render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT,
+            ["Nella tua scelta dovrai tenere conto sia della dimensione", "che del tempo necessario per far scomparire il quadrato"])
+wait_func(clock)
+
+render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT,
+            ["Quadrati più grandi daranno un punteggio maggiore"])
+wait_func(clock)
+
+render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT,
+            ["Quadrati con tempi minori ti permetteranno di", " scegliere più volte prima dello scadere del tempo"])
 wait_func(clock)
 
 render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT,
@@ -121,15 +141,11 @@ render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT,
 wait_func(clock)
 
 render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT,
-            ["Inoltre il tuo punteggio diminuirà ogni secondo", "quindi cerca di essere rapido nelle tue scelte"])
+            ["Inoltre il tuo punteggio totale diminuisce a ogni secondo", "quindi cerca di essere rapido nelle tue scelte"])
 wait_func(clock)
 
 render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT,
-            ["Per ottenere la risorsa premi sulla tastiera la frecca direzionale", "corrispondente alla posizione del quadrato (sinistra)"])
-wait_func(clock)
-
-render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT,
-            ["Ora osserverai un esempio automatico"])
+            ["Ora osserverai un esempio automatico, non devi fare nulla"])
 wait_func(clock)
 
 # Tutorial Game
@@ -137,11 +153,27 @@ results_tutorial = tutorial_game(screen, (SCREEN_WIDTH, SCREEN_HEIGHT), OBJECT_S
 
 # render text
 render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT,
-            ["Durante questo primo gioco di allenamento sarà presente", "un solo quadrato alla volta"])
+            ["Ora comincia l’esperimento"])
 wait_func(clock)
 
 render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT,
-            ["La durata di questo gioco è di 5 minuti"])
+            ["In questo primo gioco di allenamento sarà presente solo un quadrato"])
+wait_func(clock)
+
+render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT,
+            ["Per scegliere il quadrato usa la freccetta sinistra"])
+wait_func(clock)
+
+render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT,
+            ["Lo scopo è quello di provare i comandi e", " rendersi conto dei diversi parametri in gioco"])
+wait_func(clock)
+
+render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT,
+            ["Il punteggio è ininfluente per questo primo gioco"])
+wait_func(clock)
+
+render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT,
+            ["La durata di questo gioco è 1 minuto"])
 wait_func(clock)
 
 render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT,
@@ -151,23 +183,39 @@ render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT,
 wait_func(clock)
 
 #  game
-results_column1, results1 = game(screen, (SCREEN_WIDTH, SCREEN_HEIGHT), OBJECT_SIZES, clock, 1)
+results_column1, results1 = game(screen, (SCREEN_WIDTH, SCREEN_HEIGHT), OBJECT_SIZES, clock, 1, tempo_di_gioco=60)
 
 # render text
 render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT,
-            ["Nel prossimo esperimento saranno presenti", "2 quadrati contemporaneamente"])
+            ["In questo secondo gioco saranno presenti 2 quadrati contemporaneamente"])
 wait_func(clock)
 
 render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT,
-            ["Lo scopo del gioco è ottenere la maggior quantità", "possibile di punti prima dello scadere del tempo"])
+            ["Scegli quello che pensi ti permetterà di avere un punteggio finale più alto"])
 wait_func(clock)
 
 render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT,
-            ["Per ottenere la risorsa premi sulla tastiera la frecca direzionale", "corrispondente alla posizione del quadrato (sinistra, destra)"])
+            ["Per scegliere un quadrato premi la freccetta direzionale corrispondente ", "alla posizione del quadrato nello schermo (sinistra o destra)"])
 wait_func(clock)
 
 render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT,
-            ["Potrai scegliere solo uno dei due quadrati", "quindi scegli con attenzione"])
+            ["Una volta scelto, il quadrato impiegherà alcuni secondi per scomparire"])
+wait_func(clock)
+
+render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT,
+            ["Il numero dei secondi è indicato da una cifra accanto al quadrato"])
+wait_func(clock)
+
+render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT,
+            ["Nella tua scelta dovrai tenere conto sia della dimensione", "che del tempo necessario per far scomparire il quadrato"])
+wait_func(clock)
+
+render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT,
+            ["Quadrati più grandi daranno un punteggio maggiore"])
+wait_func(clock)
+
+render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT,
+            ["Quadrati con tempi minori ti permetteranno di", " scegliere più volte prima dello scadere del tempo"])
 wait_func(clock)
 
 render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT,
@@ -175,7 +223,7 @@ render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT,
 wait_func(clock)
 
 render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT,
-            ["Inoltre il tuo punteggio diminuirà ogni secondo", "quindi cerca di essere rapido nelle tue scelte"])
+            ["Inoltre il tuo punteggio totale diminuisce a ogni secondo", "quindi cerca di essere rapido nelle tue scelte"])
 wait_func(clock)
 
 render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT,
@@ -197,19 +245,35 @@ results_column2, results2 = game(screen, (SCREEN_WIDTH, SCREEN_HEIGHT), OBJECT_S
 
 #render text 3
 render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT,
-            ["Nel prossimo esperimento saranno presenti", "3 quadrati contemporaneamente"])
+            ["In questo terzo e ultimo gioco saranno presenti 3 quadrati contemporaneamente"])
 wait_func(clock)
 
 render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT,
-            ["Lo scopo del gioco è ottenere la maggior quantità", "possibile di punti prima dello scadere del tempo"])
+            ["Scegli quello che pensi ti permetterà di avere un punteggio finale più alto"])
 wait_func(clock)
 
 render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT,
-            ["Per ottenere la risorsa premi sulla tastiera la frecca direzionale", "corrispondente alla posizione del quadrato (sinistra, destra o su)"])
+            ["Per scegliere un quadrato premi la freccetta direzionale corrispondente ", "alla posizione del quadrato nello schermo (sinistra, su o destra)"])
 wait_func(clock)
 
 render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT,
-            ["Potrai scegliere solo uno dei tre quadrati", "quindi scegli con attenzione"])
+            ["Una volta scelto, il quadrato impiegherà alcuni secondi per scomparire"])
+wait_func(clock)
+
+render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT,
+            ["Il numero dei secondi è indicato da una cifra accanto al quadrato"])
+wait_func(clock)
+
+render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT,
+            ["Nella tua scelta dovrai tenere conto sia della dimensione", "che del tempo necessario per far scomparire il quadrato"])
+wait_func(clock)
+
+render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT,
+            ["Quadrati più grandi daranno un punteggio maggiore"])
+wait_func(clock)
+
+render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT,
+            ["Quadrati con tempi minori ti permetteranno di", " scegliere più volte prima dello scadere del tempo"])
 wait_func(clock)
 
 render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT,
@@ -217,7 +281,7 @@ render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT,
 wait_func(clock)
 
 render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT,
-            ["Inoltre il tuo punteggio diminuirà ogni secondo", "quindi cerca di essere rapido nelle tue scelte"])
+            ["Inoltre il tuo punteggio totale diminuisce a ogni secondo", "quindi cerca di essere rapido nelle tue scelte"])
 wait_func(clock)
 
 render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT,
@@ -234,15 +298,15 @@ wait_func(clock)
 results_column3, results3 = game(screen, (SCREEN_WIDTH, SCREEN_HEIGHT), OBJECT_SIZES, clock, 3, stimuli=stimuli, lista=lista)
 
 render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT,
-            ["L'esperimento e' concluso.", "Grazie della tua partecipazione"])
+            ["La prima parte dell’esperimento è conclusa", "Grazie della tua partecipazione"])
 wait_func(clock)
 
 render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT,
-            [f"Il tuo codice identificativo e' {ID_NUMBER}"])
+            [f"Il tuo codice identificativo e' {ID_NUMBER}", "Per favore scrivilo a parte prima di proseguire con l’esperimento"])
 wait_func(clock)
 
 render_text(screen, SCREEN_WIDTH, SCREEN_HEIGHT,
-            ["Premere la Barra Spaziatrice per chiudere il programma"])
+            ["Premere la Barra Spaziatrice per chiudere il programma", "e passare al questionario"])
 wait_func(clock)
 
 pygame.quit()
