@@ -263,7 +263,7 @@ def game(screen, screen_dim, object_sizes, clock, num_block, lista=None, stimuli
                         tmp_results.append(b.results[1])
                         tmp_results.append(b.results[2])
                         tmp_results.append(b.results[3])
-                        tmp_results.append(b.results[4])
+                        tmp_results.append(round(b.results[4]))
                     results.append(tmp_results)
                     speed = random.choice(SPEED_VALUES)
                     if num_block > 1:
@@ -338,7 +338,7 @@ def game(screen, screen_dim, object_sizes, clock, num_block, lista=None, stimuli
                         tmp_results.append(b.results[1])
                         tmp_results.append(b.results[2])
                         tmp_results.append(b.results[3])
-                        tmp_results.append(b.results[4])
+                        tmp_results.append(round(b.results[4]))
                     results.append(tmp_results)
         else:
             for b in block_list:
